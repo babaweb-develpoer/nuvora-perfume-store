@@ -308,3 +308,256 @@ for (const [name, vp] of [['375', MOBILE], ['768', TABLET], ['1280', DESKTOP]]) 
     expect(errors).toEqual([]);
   });
 }
+
+// ============================================================ order details (expandable rows)
+
+const FULL = {
+  name: 'Test Buyer', phone: '03001234567', email: 'buyer@example.com',
+  province: 'Punjab', city: 'Lahore', address: 'House 1, Street 1, Gulberg III', notes: 'Ring the bell twice.'
+};
+const toggle = (page, n) => page.locator('[data-order-toggle="' + n + '"]');
+const detailsRow = (page, n) => page.locator('tr[data-order-details="' + n + '"]');
+const region = (page, n) => detailsRow(page, n).locator('[role="region"]');
+
+test('admin orders: every row has a collapsed toggle; opening shows the full customer, items and totals', async ({ page }) => {
+  const { errors, placed } = await open(page, { orders: [{ customer: FULL, lines: LINES, totals: TOTALS }] });
+  const n = placed[0].number;
+  const count = await rows(page).count();
+  await expect(page.locator('[data-orders-body] button[data-order-toggle]')).toHaveCount(count);
+  const states = await page.locator('[data-orders-body] button[data-order-toggle]').evaluateAll((els) => els.map((e) => e.getAttribute('aria-expanded')));
+  expect(states.every((s) => s === 'false')).toBe(true);
+  // the toggle is the first cell of the row
+  await expect(rows(page).first().locator(':scope > :first-child [data-order-toggle]')).toHaveCount(1);
+
+  const btn = toggle(page, n);
+  await expect(btn).toHaveAttribute('type', 'button');
+  await expect(btn).toHaveAttribute('aria-label', 'Show details for ' + n);
+  const id = await btn.getAttribute('aria-controls');
+  expect(id).toBeTruthy();
+  await expect(detailsRow(page, n)).toBeHidden();
+
+  await btn.click();
+  await expect(btn).toHaveAttribute('aria-expanded', 'true');
+  const r = region(page, n);
+  await expect(r).toBeVisible();
+  expect(await r.getAttribute('id')).toBe(id);
+  await expect(r).toHaveAttribute('aria-label', 'Details for ' + n);
+  for (const t of ['Test Buyer', '03001234567', 'buyer@example.com', 'Punjab', 'Lahore', 'House 1, Street 1, Gulberg III',
+    'Ring the bell twice.', 'Cash on delivery', 'Placed', 'None']) {
+    await expect(r).toContainText(t);
+  }
+  const names = await page.evaluate(() => ({ a: Shop.products.find((p) => p.id === 'vn-01').name, b: Shop.products.find((p) => p.id === 'sr-01').name }));
+  await expect(r).toContainText(names.a);
+  await expect(r).toContainText(names.b);
+  await expect(r).toContainText('50 ml');
+  await expect(r).toContainText('30 ml');
+  await expect(r.locator('li')).toHaveCount(2);
+  await expect(r.locator('img[data-slot="product-vn-01"]')).toHaveCount(1);
+  await expect(r.locator('img[data-slot="product-sr-01"]')).toHaveCount(1);
+  await expect(r.locator('.ledger__row--total')).toContainText('PKR 18,000');
+  await expect(r.locator('.ledger__row--subtotal')).toBeVisible();
+  await expect(r.locator('.ledger__row--delivery')).toBeVisible();
+  // the date and time of the order are shown
+  await expect(r.locator('time')).toHaveCount(1);
+
+  await btn.click();
+  await expect(btn).toHaveAttribute('aria-expanded', 'false');
+  await expect(detailsRow(page, n)).toBeHidden();
+  expect(errors).toEqual([]);
+});
+
+test('admin orders: missing email and notes read "Not provided" and "None"; gift wrap and discount show', async ({ page }) => {
+  const lines = [{ productId: 'mn-01', ml: 50, qty: 1, gift: true }];
+  const { placed } = await open(page, { orders: [{ customer: Object.assign({}, FULL, { email: '', notes: '' }), lines, totals: { subtotal: 22000, giftWrap: 300, discount: 2200, delivery: 0, total: 20100 } }] });
+  const n = placed[0].number;
+  await toggle(page, n).click();
+  const r = region(page, n);
+  await expect(r.locator('[data-fact="email"]')).toContainText('Not provided');
+  await expect(r.locator('[data-fact="notes"]')).toContainText('None');
+  await expect(r.locator('[data-fact="code"]')).toContainText('None');
+  await expect(r.locator('li')).toContainText(/gift wrap/i);
+  await expect(r.locator('.ledger__row--giftWrap')).toContainText('PKR 300');
+  await expect(r.locator('.ledger__row--discount')).toContainText('PKR 2,200');
+  await expect(r.locator('.ledger__row--delivery')).toContainText('Free');
+});
+
+test('admin orders: a generated order opens with its seeded customer details', async ({ page }) => {
+  await open(page);
+  const first = await rows(page).first().getAttribute('data-order-row');
+  const o = await page.evaluate((num) => Shop.adminData.orders.find((x) => x.number === num), first);
+  await toggle(page, first).click();
+  const r = region(page, first);
+  await expect(r).toBeVisible();
+  for (const v of [o.customer.name, o.customer.phone, o.customer.email, o.customer.province, o.customer.city, o.customer.address]) {
+    await expect(r).toContainText(v);
+  }
+  await expect(r.locator('li')).toHaveCount(o.lines.length);
+  await expect(r.locator('.ledger__row--total')).toContainText(await page.evaluate((v) => Shop.util.formatPKR(v), o.totals.total));
+});
+
+test('admin orders: dangerous text in name, address and notes renders as text in the details', async ({ page }) => {
+  const evil = Object.assign({}, FULL, { name: XSS, address: XSS, notes: XSS });
+  const { errors, placed } = await open(page, { orders: [{ customer: evil, lines: LINES, totals: TOTALS }] });
+  const n = placed[0].number;
+  await toggle(page, n).click();
+  const r = region(page, n);
+  await expect(r).toContainText(XSS);
+  expect(await r.locator('img[onerror], img[src="x"]').count()).toBe(0);
+  expect(await page.evaluate(() => window.__x)).toBeUndefined();
+  expect(errors).toEqual([]);
+});
+
+test('admin orders: Enter and Space on the toggle open and close it, and focus stays on the button', async ({ page }) => {
+  const { placed } = await open(page, { orders: [{ customer: FULL, lines: LINES, totals: TOTALS }] });
+  const btn = toggle(page, placed[0].number);
+  await btn.focus();
+  await page.keyboard.press('Enter');
+  await expect(btn).toHaveAttribute('aria-expanded', 'true');
+  await expect(btn).toBeFocused();
+  await expect(region(page, placed[0].number)).toBeVisible();
+  await page.keyboard.press('Space');
+  await expect(btn).toHaveAttribute('aria-expanded', 'false');
+  await expect(btn).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(btn).toHaveAttribute('aria-expanded', 'true');
+  await expect(btn).toBeFocused();
+});
+
+test('admin orders: expanded rows stay open across a status change, a live re-render and Show all', async ({ page }) => {
+  const { errors, placed } = await open(page, { orders: [{ customer: FULL, lines: LINES, totals: TOTALS }] });
+  const n = placed[0].number;
+  const sampleNum = await rows(page).nth(1).getAttribute('data-order-row');
+  await toggle(page, n).click();
+  await toggle(page, sampleNum).click();
+
+  // status change on the open live order (and blur so a deferred rebuild runs)
+  await statusSelect(page, n).selectOption('Confirmed');
+  await page.evaluate(() => document.activeElement && document.activeElement.blur());
+  await expect(toggle(page, n)).toHaveAttribute('aria-expanded', 'true');
+  await expect(region(page, n)).toBeVisible();
+  await expect(region(page, n).locator('[data-fact="status"]')).toHaveText('Confirmed');
+
+  // a new order arrives: the table is rebuilt, both stay open
+  const second = await page.evaluate((o) => Shop.store.placeOrder(o.customer, o.lines, o.totals),
+    { customer: Object.assign({}, FULL, { name: 'Second Buyer' }), lines: LINES, totals: TOTALS });
+  await expect(rows(page).first()).toHaveAttribute('data-order-row', second.number);
+  await expect(toggle(page, second.number)).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle(page, n)).toHaveAttribute('aria-expanded', 'true');
+  await expect(region(page, n)).toBeVisible();
+  await expect(region(page, n)).toContainText('Test Buyer');
+  await expect(toggle(page, sampleNum)).toHaveAttribute('aria-expanded', 'true');
+  await expect(region(page, sampleNum)).toBeVisible();
+
+  // sample order status change keeps its panel too
+  await statusSelect(page, sampleNum).selectOption('Delivered');
+  await expect(region(page, sampleNum).locator('[data-fact="status"]')).toHaveText('Delivered');
+  await expect(region(page, sampleNum)).toBeVisible();
+
+  // a rebuild while a toggle has focus keeps focus on it
+  await toggle(page, n).focus();
+  await page.evaluate((o) => Shop.store.placeOrder(o.customer, o.lines, o.totals),
+    { customer: Object.assign({}, FULL, { name: 'Third Buyer' }), lines: LINES, totals: TOTALS });
+  await expect(page.locator('[data-stat="orders"]')).toHaveText(String((await page.evaluate(() => Shop.adminData.orders.length)) + 3));
+  await expect(toggle(page, n)).toBeFocused();
+  await expect(toggle(page, n)).toHaveAttribute('aria-expanded', 'true');
+
+  // Show all and back
+  await page.locator('[data-orders-toggle]').click();
+  await expect(toggle(page, n)).toHaveAttribute('aria-expanded', 'true');
+  await page.locator('[data-orders-toggle]').click();
+  await expect(toggle(page, n)).toHaveAttribute('aria-expanded', 'true');
+  expect(errors).toEqual([]);
+});
+
+for (const [name, vp] of [['320', { width: 320, height: 700 }], ['375', MOBILE], ['768', TABLET], ['900', { width: 900, height: 900 }], ['960', { width: 960, height: 900 }], ['1024', { width: 1024, height: 800 }], ['1099', { width: 1099, height: 800 }], ['1280', DESKTOP]]) {
+  test('admin orders: an expanded order has no horizontal scroll and no tiny text at ' + name, async ({ page }) => {
+    const long = Object.assign({}, FULL, { address: 'House 118, Block B, Madina Town, Opposite the Central Park Main Boulevard Gate Number Four', notes: 'Please call before delivery and leave it with the guard.' });
+    const { errors, placed } = await open(page, { viewport: vp, orders: [{ customer: long, lines: LINES, totals: TOTALS }] });
+    const n = placed[0].number;
+    await toggle(page, n).click();
+    await toggle(page, await rows(page).nth(1).getAttribute('data-order-row')).click();
+    await page.locator('[data-orders-toggle]').click();
+    const o = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
+    expect(o.sw, 'no horizontal scroll').toBeLessThanOrEqual(o.cw);
+    const r = region(page, n);
+    const box = await r.boundingBox();
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(vp.width + 0.5);
+    // everything inside the details stays inside the details box
+    const outside = await r.evaluate((root) => {
+      const rb = root.getBoundingClientRect();
+      const out = [];
+      root.querySelectorAll('*').forEach((el) => {
+        const b = el.getBoundingClientRect();
+        if (b.width && (b.right > rb.right + 1 || b.left < rb.left - 1)) out.push(el.tagName + '.' + el.className + ' ' + Math.round(b.right - rb.right));
+      });
+      return out;
+    });
+    expect(outside).toEqual([]);
+    // the table always fits its panel: it never needs a scrollbar of its own
+    expect(await page.locator('.ad-orders .ad-table-wrap').evaluate((w) => w.scrollWidth <= w.clientWidth + 1)).toBe(true);
+    const tiny = await r.evaluate((root) => {
+      const out = [];
+      root.querySelectorAll('*').forEach((el) => {
+        const own = Array.prototype.some.call(el.childNodes, (c) => c.nodeType === 3 && c.textContent.trim());
+        if (!own) return;
+        const b = el.getBoundingClientRect();
+        if (!b.width || !b.height) return;
+        const fs = parseFloat(getComputedStyle(el).fontSize);
+        if (fs < 11) out.push(el.tagName + ' ' + fs + ' ' + el.textContent.trim().slice(0, 30));
+      });
+      return out;
+    });
+    expect(tiny).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}
+
+test('admin orders: Expand all / Collapse all opens and closes every shown order', async ({ page }) => {
+  await open(page, { orders: [{ customer: FULL, lines: LINES, totals: TOTALS }] });
+  const all = page.locator('[data-orders-expand]');
+  await expect(all).toHaveText('Expand all');
+  await all.click();
+  const states = () => page.locator('[data-orders-body] button[data-order-toggle]').evaluateAll((els) => els.map((e) => e.getAttribute('aria-expanded')));
+  expect((await states()).every((s) => s === 'true')).toBe(true);
+  await expect(all).toHaveText('Collapse all');
+  await all.click();
+  expect((await states()).every((s) => s === 'false')).toBe(true);
+});
+
+// ============================================================ products: photo file name
+
+test('admin products: one extra column "Photo file" shows each manifest file name, nothing else added', async ({ page }) => {
+  const { errors } = await open(page);
+  const heads = await page.locator('[data-products-table] thead th').allTextContents();
+  expect(heads.map((h) => h.trim())).toEqual(['Product', 'House', 'Stock', 'From', 'Rating', 'Availability', 'Photo file']);
+  const want = await page.evaluate(() => Shop.products.map((p) => [p.id, Shop.media['product-' + p.id].file.split('/').pop()]));
+  expect(want.length).toBe(12);
+  for (const [id, file] of want) {
+    const cell = page.locator('[data-product-row="' + id + '"] .ad-prow__file');
+    await expect(cell).toHaveCount(1);
+    await expect(cell.locator('code')).toHaveText(file);
+    expect(file).toBe('product-' + id + '.jpg');
+  }
+  await expect(page.locator('[data-products-body] img, [data-products-body] .media')).toHaveCount(0);
+  await expect(page.locator('[data-products-body] a')).toHaveCount(12);
+  await expect(page.locator('[data-product-row="mn-01"] th a')).toHaveAttribute('href', 'product.html?id=mn-01');
+  expect(errors).toEqual([]);
+});
+
+for (const [name, vp] of [['320', { width: 320, height: 700 }], ['375', MOBILE], ['768', TABLET], ['1280', DESKTOP]]) {
+  test('admin products: photo file names fit with no horizontal scroll at ' + name, async ({ page }) => {
+    const { errors } = await open(page, { viewport: vp });
+    const o = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
+    expect(o.sw).toBeLessThanOrEqual(o.cw);
+    const cell = page.locator('[data-product-row="mn-01"] .ad-prow__file');
+    await cell.scrollIntoViewIfNeeded();
+    const b = await cell.locator('code').boundingBox();
+    expect(b.x + b.width).toBeLessThanOrEqual(vp.width + 0.5);
+    const fs = await cell.locator('code').evaluate((e) => parseFloat(getComputedStyle(e).fontSize));
+    expect(fs).toBeGreaterThanOrEqual(11);
+    if (vp.width < 900) await expect(cell).toContainText('Photo file'); // stacked card keeps its label
+    expect(await page.locator('.ad-products .ad-table-wrap').evaluate((w) => w.scrollWidth <= w.clientWidth + 1)).toBe(true);
+    expect(errors).toEqual([]);
+  });
+}

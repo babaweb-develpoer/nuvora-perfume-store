@@ -5910,6 +5910,106 @@
 .page-admin .ad-orow__pay { color: var(--muted); }
 .page-admin .ad-orow__pay abbr { text-decoration: none; cursor: help; letter-spacing: 0.06em; }
 
+/* order details: a chevron toggle in the first cell opens a second row under the order */
+.page-admin .ad-orders__tools { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+.page-admin .ad-orders__table th.ad-orders__tcol,
+.page-admin .ad-orders__table td.ad-orow__toggle { width: 52px; padding: 0 0 0 8px; }
+.page-admin .ad-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.page-admin .ad-toggle:hover { border-color: var(--gold-hair); color: var(--gold-soft); }
+.page-admin .ad-toggle:focus-visible { outline: 1.5px solid var(--gold); outline-offset: 2px; }
+.page-admin .ad-toggle[aria-expanded='true'] { color: var(--gold-soft); }
+.page-admin .ad-toggle__chev { display: block; transition: transform var(--dur-fast) var(--ease-out); }
+.page-admin .ad-toggle[aria-expanded='true'] .ad-toggle__chev { transform: rotate(90deg); }
+
+.page-admin .ad-orow.is-open > * { border-bottom-color: transparent; }
+.page-admin .ad-orders__table td.ad-odetail__cell { padding: 0 0 20px; border-bottom: 1px solid var(--ivory-line); }
+.page-admin .ad-od {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px 40px;
+  margin-left: 52px;
+  padding: clamp(14px, 2vw, 24px);
+  border: 1px solid var(--gold-hair);
+  background: var(--bg);
+}
+@media (min-width: 1100px) {
+  .page-admin .ad-od { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+}
+.page-admin .ad-od__main,
+.page-admin .ad-od__side { min-width: 0; }
+.page-admin .ad-od__title {
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ivory-line);
+  color: var(--gold-soft);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.page-admin .ad-od__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12.5rem), 1fr));
+  gap: 0 28px;
+  margin: 0;
+}
+.page-admin .ad-od__fact { min-width: 0; margin: 0; padding: 10px 0 11px; border-top: 1px solid var(--border); }
+.page-admin .ad-od__fact--wide { grid-column: 1 / -1; }
+.page-admin .ad-od__fact dt {
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.page-admin .ad-od__fact dd {
+  margin: 0;
+  color: var(--ivory);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.page-admin .ad-od__list { display: grid; margin: 0 0 8px; }
+.page-admin .ad-od__item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+}
+.page-admin .ad-od__thumb { display: block; width: 56px; }
+.page-admin .ad-od__img { border: 1px solid var(--border); }
+.page-admin .ad-od__info { display: grid; gap: 2px; min-width: 0; }
+.page-admin .ad-od__pname { color: var(--ivory); font-family: var(--font-heading); font-size: var(--text-lg); line-height: 1.2; overflow-wrap: anywhere; }
+.page-admin .ad-od__pmeta { color: var(--muted); font-size: 0.75rem; line-height: 1.5; }
+.page-admin .ad-od__ltotal { color: var(--ivory); font-size: var(--text-sm); white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; }
+.page-admin .ad-od .bag-ledger { padding-top: 6px; border-top: 1px solid var(--ivory-line); }
+.page-admin .ad-od .bag-ledger .ledger__row { padding-block: 5px; }
+.page-admin .ad-od .bag-ledger .ledger__row--total { margin-top: 6px; padding-top: 12px; }
+.page-admin .ad-od .bag-ledger .ledger__row--total .ledger__value { font-size: var(--text-xl); }
+@media (max-width: 479px) {
+  .page-admin .ad-od__item { grid-template-columns: 56px minmax(0, 1fr); }
+  .page-admin .ad-od__ltotal { grid-column: 2; }
+}
+
 /* status: a select dressed as a pill; the dot carries state, the word carries meaning */
 .page-admin .ad-status {
   position: relative;
@@ -5978,6 +6078,14 @@
 .page-admin .ad-prow__rating { color: var(--ivory); }
 .page-admin .ad-rating { display: inline-flex; align-items: center; gap: 6px; }
 .page-admin .ad-prow__star { width: 13px; height: 13px; color: var(--gold); fill: var(--gold); }
+.page-admin .ad-prow__file { min-width: 0; }
+.page-admin .ad-prow__code {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
 .page-admin .ad-badge--in { border-color: var(--ivory-line); background: transparent; color: var(--muted); }
 
 /* hints and the orders footer */
@@ -6047,6 +6155,16 @@
 .page-admin .ad-low__count.is-out { color: var(--danger); }
 .page-admin .ad-low__empty { color: var(--muted); font-size: var(--text-sm); }
 
+/* ------------------------------------------- narrow desktops: keep the table inside its panel */
+@media (min-width: 900px) and (max-width: 1099px) {
+  .page-admin .ad-orders__table th,
+  .page-admin .ad-orders__table td { padding-right: 10px; }
+  .page-admin .ad-orders__table td.ad-odetail__cell { padding-right: 0; }
+  .page-admin .ad-orders__table .ad-orow__order { white-space: normal; }
+  .page-admin .ad-orders__table .ad-orow__order .ad-origin { display: flex; width: max-content; margin-top: 4px; }
+  .page-admin .ad-orders__table .ad-status { min-width: 8.5rem; }
+}
+
 /* ------------------------------------------- phones: rows become cards */
 
 @media (max-width: 899px) {
@@ -6080,8 +6198,15 @@
   .page-admin .ad-orow--live > :first-child { box-shadow: none; }
   .page-admin .ad-orow__order { grid-column: 1 / 4; grid-row: 1; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; }
   .page-admin .ad-orow__number { margin-right: 0; }
-  .page-admin .ad-orders__table .ad-orow__total { grid-column: 4; grid-row: 1; font-weight: 500; text-align: right; }
-  .page-admin .ad-orow__cust { grid-column: 1 / -1; grid-row: 2; }
+  .page-admin .ad-orders__table .ad-orow__total { grid-column: 4; grid-row: 2; font-weight: 500; text-align: right; }
+  /* the details toggle sits at the top right of the card (it is the first cell in the DOM) */
+  .page-admin .ad-orders__table td.ad-orow__toggle { grid-column: 4; grid-row: 1; width: auto; justify-self: end; margin: -8px 0; }
+  .page-admin .ad-orders__table tbody tr.ad-orow.is-open { border-bottom: 0; padding-bottom: 12px; }
+  .page-admin .ad-orders__table tbody tr.ad-odetail { display: block; padding: 0 0 16px; }
+  .page-admin .ad-orders__table tbody tr.ad-odetail[data-live='1'] { padding-left: 14px; box-shadow: inset 2px 0 0 var(--gold); }
+  .page-admin .ad-orders__table tbody td.ad-odetail__cell { display: block; padding: 0; border: 0; }
+  .page-admin .ad-od { margin-left: 0; }
+  .page-admin .ad-orow__cust { grid-column: 1 / 4; grid-row: 2; }
   .page-admin .ad-orow__name,
   .page-admin .ad-orow__city { display: inline; }
   .page-admin .ad-orow__city::before { content: ', '; }
@@ -6110,13 +6235,25 @@
   .page-admin .ad-prow__from,
   .page-admin .ad-prow__rating { order: 2; font-size: 0.8125rem; }
   .page-admin .ad-prow__rating .ad-orow__k { display: none; }
+  .page-admin .ad-prow__file { flex: 0 0 100%; order: 3; }
+}
+
+@media (max-width: 399px) {
+  /* very narrow phones: tighter columns so the card never needs its own sideways scroll */
+  .page-admin .ad-orders__table tbody tr.ad-orow { column-gap: 10px; }
+  .page-admin .ad-orders__table tbody tr.ad-orow--live,
+  .page-admin .ad-orders__table tbody tr.ad-odetail[data-live='1'] { padding-left: 8px; }
 }
 
 @media (min-width: 560px) and (max-width: 899px) {
-  /* tablets: the status control sits at the right of the card instead of under it */
+  /* tablets: the status control sits at the right of the card instead of under it,
+     and the total keeps the top row beside the details toggle (a fifth column) */
+  .page-admin .ad-orders__table tbody tr.ad-orow { grid-template-columns: auto auto minmax(0, 1fr) auto auto; }
+  .page-admin .ad-orders__table .ad-orow__total { grid-column: 4; grid-row: 1; }
+  .page-admin .ad-orders__table td.ad-orow__toggle { grid-column: 5; }
   .page-admin .ad-orow__cust { grid-column: 1 / 4; }
   .page-admin .ad-orow__pay { grid-column: 3; }
-  .page-admin .ad-orow__status { grid-column: 4; grid-row: 2 / 4; margin-top: 0; justify-self: end; }
+  .page-admin .ad-orow__status { grid-column: 4 / -1; grid-row: 2 / 4; margin-top: 0; justify-self: end; }
   .page-admin .ad-orow__status .ad-status { width: 11rem; }
 }
 
@@ -6133,6 +6270,8 @@
 @media (prefers-reduced-motion: reduce) {
   .page-admin .ad-chart__bar,
   .page-admin .ad-status,
+  .page-admin .ad-toggle,
+  .page-admin .ad-toggle__chev,
   .page-admin .ad-low__name,
   .page-admin .ad-prow__name a { transition: none; }
 }
