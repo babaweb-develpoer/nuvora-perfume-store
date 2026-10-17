@@ -1,0 +1,88 @@
+<!doctype html>
+<!--
+  STANDARD PAGE SKELETON (binding for Tasks 8-17). Copy this file to <page>.html.
+
+  - Replace every TODO. Keep the <head> order: meta, preconnect + fonts, CSS, config.js (last).
+  - <body data-nav="...">: ui.js auto-mounts the shell (header, optional notice strip, footer,
+    cart drawer, search overlay, toast host, WhatsApp button) on DOMContentLoaded and
+    marks the matching nav link aria-current="page".
+      data-nav keys: shop | brands | quiz | about | contact  (anything else = no active link)
+  - Hero pages: add data-header="overlay" to <body> so the header floats transparent over
+    the first section until scroll. The first section must then pad its own top by
+    var(--header-h).
+  - Fixed bottom bars (sticky add-to-cart on product.html, checkout summary bar): add
+    class="has-bottom-bar" to <body> so the floating WhatsApp button moves up above the
+    bar. Default lift is 72px; set style="--bottom-bar-h: <bar height>px" on <body> if
+    your bar is a different height. The button also fades away by itself whenever a
+    control (or any element marked data-fab-avoid, e.g. the order totals) sits under it.
+  - <body data-shell="off"> skips the shell (e.g. a print view). Never needed normally.
+  - Write NO header/footer markup yourself. Put page content inside <main id="main">.
+  - Scripts are classic (no type="module": it fails on file://). Keep this exact order (config.js lives in the <head>, see there),
+    then your page script last. Pages without a page script simply omit that line.
+  - After injecting markup that contains .reveal elements, call Shop.ui.reveal().
+  - Product cards: Shop.ui.productCard(product). Wishlist hearts and quick-add buttons
+    are handled by ui.js delegation; do not add listeners for them.
+  - Images and videos: Shop.ui.media('<slot id>', { eager, className, sizes, alt }).
+    Missing files fall back to the .ph placeholder automatically.
+  - Any form that collects personal data must declare method="post" action="#" so a no-JS or aborted-init submit never puts data in the URL (only search and filter forms stay method="get").
+  - All dynamic text through Shop.util.escapeHtml. Page styles go in assets/css/pages.css.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TODO Page title | Nuvora</title>
+  <meta name="description" content="TODO one sentence, 140-160 characters, describing this page.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="TODO Page title | Nuvora">
+  <meta property="og:description" content="TODO same as meta description.">
+  <meta property="og:image" content="https://example.com/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body data-nav="TODO">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+    <!-- TODO page content. Typical section:
+    <section class="section">
+      <div class="container">
+        <header class="section-heading reveal">
+          <p class="section-heading__eyebrow">Eyebrow</p>
+          <h2 class="section-heading__title">Section title</h2>
+          <p class="section-heading__lead">Optional lead sentence.</p>
+        </header>
+        <div class="grid grid--products" id="TODO"></div>
+      </div>
+    </section>
+    -->
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/TODO.js"></script>
+</body>
+</html>

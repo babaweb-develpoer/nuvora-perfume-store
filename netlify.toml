@@ -1,0 +1,74 @@
+# Netlify settings. Read by Netlify when you deploy from Git (or with the Netlify CLI).
+# Dragging the dist folder onto Netlify does NOT read this file: that deploy works,
+# but without the headers below. See README.md, "Deploy".
+
+[build]
+  # Builds dist/ with only the deployable files (no tests, docs or tools). The rest
+  # follows assets/js/config.js: showcasePages keeps admin.html + styleguide.html (the
+  # footer links them), indexable: false adds noindex to every page. See README.md.
+  command = "npm run package"
+  publish = "dist"
+
+[build.environment]
+  # The package script needs Node 18 or newer.
+  NODE_VERSION = "20"
+
+# ---------------------------------------------------------------------------
+# 404 page: nothing to configure. Netlify serves 404.html (with a 404 status)
+# for any address that does not exist, so no /* redirect is added: a catch-all
+# redirect would hide real 404s from visitors and search engines.
+# ---------------------------------------------------------------------------
+
+# Security headers on every response.
+# There is deliberately NO Content-Security-Policy: the pages use inline JSON-LD
+# (structured data) and Google Fonts, so a safe policy would need per-site tuning.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # SAMEORIGIN, not DENY: the site's own pages may frame each other (for example a
+    # portfolio page previewing the shop), other sites still cannot.
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Caching. File names are NOT content-hashed (assets/img/hero-1.jpg keeps its name when
+# you replace the picture), so nothing can be cached "forever" without risking stale
+# files after a redeploy. Each rule below matches a different path so they never
+# compete over the same Cache-Control header.
+
+# Pages: always ask the server whether the page changed.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Images and videos are large and rarely change: keep them for a week.
+# After replacing a picture, visitors may see the old one for up to 7 days; if that
+# matters, give the new file a new name and update media-manifest.js.
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/assets/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Scripts and styles change when you rebrand or fix things: keep for an hour, then
+# re-check, so a redeploy shows up quickly.
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"

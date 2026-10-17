@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /styleguide.html
+Disallow: /order-confirmation.html
+
+Sitemap: https://babaweb-develpoer.github.io/nuvora-perfume-store/sitemap.xml

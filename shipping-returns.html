@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shipping &amp; returns | Nuvora</title>
+  <meta name="description" content="Delivery times by city, delivery charges, how cash on delivery works, our 7-day returns and exchanges, refunds and what happens if a parcel arrives damaged.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Shipping &amp; returns | Nuvora">
+  <meta property="og:description" content="Delivery times by city, delivery charges, how cash on delivery works, our 7-day returns and exchanges, refunds and what happens if a parcel arrives damaged.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-policies" data-nav="">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <header class="cp-head container" aria-labelledby="sr-title">
+      <h1 class="cp-head__title" id="sr-title">Shipping &amp; returns</h1>
+      <p class="cp-head__lead">How your parcel reaches you, what it costs, and what to do if something is not right. Written plainly, with no small print hidden further down.</p>
+    </header>
+
+    <!-- The four facts most people come for -->
+    <div class="container">
+      <dl class="sr-glance">
+        <div class="sr-glance__item">
+          <dt>Delivery</dt>
+          <dd><span data-config="deliveryFee">A flat fee</span> per order</dd>
+        </div>
+        <div class="sr-glance__item">
+          <dt>Free delivery</dt>
+          <dd>On orders of <span data-config="freeDeliveryThreshold">a set amount</span> or more</dd>
+        </div>
+        <div class="sr-glance__item">
+          <dt>Arrives in</dt>
+          <dd>2 to 5 working days after dispatch</dd>
+        </div>
+        <div class="sr-glance__item">
+          <dt>Returns</dt>
+          <dd>7 days, unopened, collected free</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="sr-layout container">
+      <nav class="sr-toc" aria-label="On this page">
+        <p class="sr-toc__title" id="sr-toc-title">On this page</p>
+        <ul class="sr-toc__list" data-toc>
+          <li><a class="sr-toc__link" href="#shipping">Shipping</a></li>
+          <li><a class="sr-toc__link" href="#cod">Cash on delivery</a></li>
+          <li><a class="sr-toc__link" href="#returns">Returns &amp; exchanges</a></li>
+          <li><a class="sr-toc__link" href="#damaged">Damaged in transit</a></li>
+          <li><a class="sr-toc__link" href="#gifting">Gift wrapping</a></li>
+        </ul>
+      </nav>
+
+      <div class="sr-doc">
+
+        <section class="sr-section" id="shipping" aria-labelledby="shipping-title">
+          <h2 class="sr-section__title" id="shipping-title">Shipping</h2>
+          <p>We deliver to every city and town in Pakistan that our courier partner reaches. Orders are packed by hand and handed to the courier within 1 to 2 working days of being confirmed. Working days are Monday to Saturday, excluding public holidays.</p>
+
+          <h3 class="sr-section__sub">How long delivery takes</h3>
+          <div class="sr-table-wrap">
+            <table class="sr-table">
+              <caption>Typical delivery times, in working days after dispatch</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Where you are</th>
+                  <th scope="col">Includes</th>
+                  <th scope="col">Working days</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Major cities</th>
+                  <td>Lahore, Karachi, Islamabad, Rawalpindi</td>
+                  <td class="sr-table__num">2 to 3</td>
+                </tr>
+                <tr>
+                  <th scope="row">Other cities</th>
+                  <td>Faisalabad, Multan, Peshawar, Sialkot, Gujranwala, Hyderabad, Quetta and similar</td>
+                  <td class="sr-table__num">3 to 4</td>
+                </tr>
+                <tr>
+                  <th scope="row">Rest of Pakistan</th>
+                  <td>Smaller towns and rural addresses</td>
+                  <td class="sr-table__num">3 to 5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="sr-note">Northern areas can take a day or two longer when roads close for weather. We will tell you on the confirmation call if we expect a delay.</p>
+
+          <h3 class="sr-section__sub">What delivery costs</h3>
+          <p>Delivery is a flat <strong data-config="deliveryFee">fee</strong> per order, wherever you are. It is free when your order comes to <strong data-config="freeDeliveryThreshold">our free-delivery amount</strong> or more, counted before any discount code and gift wrap. Your bag always shows how far you are from free delivery.</p>
+        </section>
+
+        <section class="sr-section" id="cod" aria-labelledby="cod-title">
+          <h2 class="sr-section__title" id="cod-title">Cash on delivery</h2>
+          <p>Every order is cash on delivery. Nothing is charged online and we never ask for card details or an advance transfer.</p>
+
+          <h3 class="sr-section__sub">The confirmation call</h3>
+          <p>Within one working day of your order, we contact you on the number you gave at checkout to confirm the bottles, your address and the total. Your order is dispatched once you confirm. If we cannot reach you after two tries over two days, we cancel the order and let you know by text, so nothing is sent that you did not expect.</p>
+
+          <h3 class="sr-section__sub">Paying the courier</h3>
+          <p>When the parcel arrives, check that the box and the seal on each bottle are intact, then pay the courier the exact total in cash. Keep notes ready: couriers often carry very little change. The courier gives you a receipt, and <a class="sr-link" href="track-order.html">Track your order</a> shows the order as delivered.</p>
+
+          <h3 class="sr-section__sub">If delivery fails</h3>
+          <p>The courier calls before each attempt and makes up to two. If nobody is available, or the parcel is refused without a reason, it comes back to us and the order is cancelled. You pay nothing. To order again, simply place a new order; we may ask you to confirm it by phone first.</p>
+        </section>
+
+        <section class="sr-section" id="returns" aria-labelledby="returns-title">
+          <h2 class="sr-section__title" id="returns-title">Returns &amp; exchanges</h2>
+          <p>Changed your mind? You can return or exchange any bottle within 7 days of delivery, provided it is <strong>unopened</strong>: cellophane and seal intact, in its original box with everything it came with. Opened bottles can only be returned if they arrived damaged or faulty, because we can no longer sell them as sealed.</p>
+
+          <h3 class="sr-section__sub">How to return a bottle</h3>
+          <ol class="sr-steps">
+            <li><span class="sr-steps__name">Tell us within 7 days.</span> Message us through the <a class="sr-link" href="contact.html">contact page</a><span data-wa-only hidden> or on <a class="sr-link" data-wa="Hello {shop}, I would like to return or exchange a bottle from my order." href="contact.html">WhatsApp</a></span> with your order number and which bottle you are returning.</li>
+            <li><span class="sr-steps__name">Pack it up.</span> Put the sealed bottle back in its box and in the original parcel if you still have it.</li>
+            <li><span class="sr-steps__name">We collect it.</span> Our courier picks it up from your address at no cost to you, usually within 3 working days.</li>
+            <li><span class="sr-steps__name">We check and refund.</span> Once the bottle reaches us and the seal is confirmed intact, we refund or send your exchange.</li>
+          </ol>
+
+          <h3 class="sr-section__sub">Exchanges</h3>
+          <p>You can swap an unopened bottle for a different fragrance or size. If the new bottle costs more, you pay the difference in cash when it is delivered; if it costs less, we refund the difference.</p>
+
+          <h3 class="sr-section__sub">How refunds are paid</h3>
+          <p>As you paid in cash, we refund by bank transfer or mobile wallet, whichever you prefer, within 5 working days of the bottle reaching us. Refunds cover the price of the bottle and any gift wrap. The delivery charge is refunded too when the mistake was ours.</p>
+        </section>
+
+        <section class="sr-section" id="damaged" aria-labelledby="damaged-title">
+          <h2 class="sr-section__title" id="damaged-title">Damaged in transit</h2>
+          <p>We pack every bottle to survive a long road, but parcels are sometimes dropped. If the outer box is crushed or wet, or you can smell perfume through it, you may refuse it at the door and we will send a replacement at no cost.</p>
+          <p>If you find damage after opening, message us within 48 hours of delivery with a photo of the bottle and the box. We replace it free of charge, or refund you in full including delivery if you prefer, and there is no need to send the broken bottle back.</p>
+        </section>
+
+        <!-- Gifting: the gift clip (plays only while on screen) and two photographs -->
+        <section class="sr-section sr-gift" id="gifting" aria-labelledby="gifting-title">
+          <h2 class="sr-section__title" id="gifting-title">Gift wrapping</h2>
+          <p>Tick gift wrap next to any bottle in your bag and it leaves us in our black gift box, bedded in ivory satin and tied by hand with a gold ribbon. Wrapping costs <strong data-config="giftWrapFee">a small fee</strong> once per order, however many bottles you wrap.</p>
+          <figure class="sr-gift__film">
+            <div class="sr-gift__media" data-media="gift-video" data-play="inview"></div>
+            <figcaption class="sr-gift__caption">What the person you are giving it to sees: the lid lifted, the bottle raised from its satin, then set back.</figcaption>
+          </figure>
+          <div class="sr-gift__pair">
+            <figure class="sr-gift__photo">
+              <div class="sr-gift__media" data-media="gift-1" data-sizes="(min-width: 900px) 340px, 50vw"></div>
+              <figcaption class="sr-gift__caption">Each bottle rests in its own satin bed.</figcaption>
+            </figure>
+            <figure class="sr-gift__photo">
+              <div class="sr-gift__media" data-media="gift-2" data-sizes="(min-width: 900px) 340px, 50vw"></div>
+              <figcaption class="sr-gift__caption">The ribbon is tied by hand at our packing table.</figcaption>
+            </figure>
+          </div>
+          <p>Buying more than one gift? The code <span class="sr-gift__code">GIFT15</span> takes <strong data-config="gift15.percent">a percentage</strong> off orders of <strong data-config="gift15.min">a set amount</strong> or more. Gift wrap is refunded along with the bottle if it comes back unopened.</p>
+        </section>
+
+        <aside class="sr-help" aria-labelledby="sr-help-title">
+          <h2 class="sr-help__title" id="sr-help-title">Something else?</h2>
+          <p>Most questions are answered in our <a class="sr-link" href="faq.html">FAQ</a>. For anything about a specific order, <a class="sr-link" href="contact.html">contact us</a> with your order number and we will take it from there.</p>
+        </aside>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/content.js"></script>
+</body>
+</html>

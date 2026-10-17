@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find your scent | Nuvora</title>
+  <meta name="description" content="Answer five quick questions about the occasion, season, strength, scent family and budget, and we rank our whole collection to find your three best matches.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Find your scent | Nuvora">
+  <meta property="og:description" content="Answer five quick questions about the occasion, season, strength, scent family and budget, and we rank our whole collection to find your three best matches.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-quiz" data-nav="quiz">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main" class="qz" data-qz-state="intro">
+    <!-- One polite announcer for step changes and results -->
+    <p class="sr-only" role="status" aria-live="polite" data-qz-live></p>
+
+    <!-- Intro only: the scent clip (oud, rose, saffron, amber drifting in warm
+         light) as an atmosphere behind the opening; filled by pages/quiz.js,
+         box reserved in CSS, plays only while on screen, poster with reduced motion -->
+    <div class="qz-backdrop" aria-hidden="true" data-media="scent-video" data-qz-backdrop></div>
+
+    <div class="qz-stage container">
+      <!-- The page title: large on the intro, a quiet running head during the consultation -->
+      <header class="qz-mast">
+        <h1 class="qz-mast__title" id="qz-title" tabindex="-1">Find your signature scent</h1>
+      </header>
+
+      <!-- ============================================================ intro -->
+      <section class="qz-intro" data-qz-view="intro" aria-labelledby="qz-title">
+        <p class="qz-intro__lead"><span data-qz-count-word>Five</span> quick questions, about a minute. We rank the whole collection against your answers and bring you the three that suit you best.</p>
+        <div class="qz-intro__actions">
+          <button type="button" class="btn btn--primary btn--lg qz-intro__begin" data-qz-begin>
+            Begin
+            <svg class="icon btn__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg>
+          </button>
+          <a class="btn btn--text qz-intro__browse" href="shop.html">Or browse the full collection</a>
+        </div>
+        <p class="qz-intro__note">Your answers stay on this page. Nothing is saved or sent.</p>
+
+        <!-- What we will ask; rebuilt from Shop.quiz.QUESTIONS by quiz.js -->
+        <ol class="qz-preview" data-qz-preview aria-label="The questions">
+          <li class="qz-preview__item"><span class="qz-preview__num" aria-hidden="true">1</span><span class="qz-preview__topic">Occasion</span><span class="qz-preview__q">What is the occasion?</span></li>
+          <li class="qz-preview__item"><span class="qz-preview__num" aria-hidden="true">2</span><span class="qz-preview__topic">Season</span><span class="qz-preview__q">Which season will you wear it in?</span></li>
+          <li class="qz-preview__item"><span class="qz-preview__num" aria-hidden="true">3</span><span class="qz-preview__topic">Strength</span><span class="qz-preview__q">How strong should it be?</span></li>
+          <li class="qz-preview__item"><span class="qz-preview__num" aria-hidden="true">4</span><span class="qz-preview__topic">Family</span><span class="qz-preview__q">Which scent family draws you in?</span></li>
+          <li class="qz-preview__item"><span class="qz-preview__num" aria-hidden="true">5</span><span class="qz-preview__topic">Budget</span><span class="qz-preview__q">What is your budget for a 50 ml bottle?</span></li>
+        </ol>
+      </section>
+
+      <!-- ============================================================= steps -->
+      <section class="qz-step" data-qz-view="step" aria-labelledby="qz-question" hidden>
+        <div class="qz-rail">
+          <div class="qz-rail__top">
+            <p class="qz-rail__count" data-qz-progress-label>Question 1 of 5</p>
+            <button type="button" class="btn btn--text qz-rail__restart" data-qz-restart>Start over</button>
+          </div>
+          <div class="progress-bar qz-rail__bar" data-qz-progress role="progressbar" aria-label="Quiz progress"
+               aria-valuemin="0" aria-valuemax="5" aria-valuenow="1" aria-valuetext="Question 1 of 5" style="--progress-ratio: 0.2">
+            <span class="progress-bar__fill"></span>
+          </div>
+          <ol class="qz-markers" data-qz-markers aria-label="Your answers so far"></ol>
+        </div>
+
+        <form class="qz-form" method="post" action="#" novalidate>
+          <fieldset class="qz-fieldset" data-qz-fieldset>
+            <legend class="qz-legend"><h2 class="qz-question" id="qz-question" data-qz-question tabindex="-1">What is the occasion?</h2></legend>
+            <!-- Sits between the question and the options, next to where focus goes -->
+            <p class="qz-error" id="qz-error" data-qz-error hidden>Choose one answer to continue.</p>
+            <div class="qz-options" data-qz-options></div>
+          </fieldset>
+          <div class="qz-nav">
+            <button type="button" class="btn btn--ghost qz-nav__back" data-qz-back disabled>
+              <svg class="icon qz-nav__back-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19.5 12h-15M10.5 6l-6 6 6 6"/></svg>
+              Back
+            </button>
+            <button type="submit" class="btn btn--primary qz-nav__next" data-qz-next>
+              <span data-qz-next-label>Next<span class="qz-nav__more"> question</span></span>
+              <svg class="icon btn__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- =========================================================== results -->
+      <section class="qz-results" data-qz-view="results" aria-labelledby="qz-results-title" hidden>
+        <header class="qz-results__head">
+          <h2 class="qz-results__title" id="qz-results-title" data-qz-results-title tabindex="-1">Your top matches</h2>
+          <p class="qz-results__lead" data-qz-results-lead>Ranked from our whole collection against your answers.</p>
+          <div class="qz-brief">
+            <ul class="qz-brief__chips" data-qz-chips aria-label="Your answers"></ul>
+            <button type="button" class="btn btn--text qz-brief__edit" data-qz-edit>Edit answers</button>
+          </div>
+        </header>
+
+        <ol class="qz-matches" data-qz-matches aria-label="Your top three matches"></ol>
+
+        <section class="qz-also" aria-labelledby="qz-also-title">
+          <h2 class="qz-also__title" id="qz-also-title">Also consider</h2>
+          <div class="qz-also__grid" data-qz-also></div>
+        </section>
+
+        <div class="qz-results__end">
+          <button type="button" class="btn btn--ghost" data-qz-retake>Retake the quiz</button>
+          <a class="btn btn--text" href="shop.html" data-qz-browse>Browse the full collection</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/quiz.js"></script>
+</body>
+</html>

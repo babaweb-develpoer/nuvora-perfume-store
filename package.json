@@ -1,0 +1,15 @@
+{
+  "name": "perfume-shop-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nuvora, a concept perfume store for a portfolio: dark-luxury static site (HTML/CSS/vanilla JS, PKR, cash on delivery)",
+  "scripts": {
+    "test:unit": "node --test \"tests/unit/*.test.js\"",
+    "test:e2e": "playwright test",
+    "package": "node tools/package.js",
+    "set-domain": "node tools/set-domain.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}

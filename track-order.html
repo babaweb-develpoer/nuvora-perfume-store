@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Track your order | Nuvora</title>
+  <meta name="description" content="Check where your Nuvora order is: enter your order number and the mobile number used at checkout to see its progress and expected delivery dates.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Track your order | Nuvora">
+  <meta property="og:description" content="Check where your Nuvora order is: enter your order number and the mobile number used at checkout to see its progress and expected delivery dates.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-track" data-nav="">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <header class="tk-head container" aria-labelledby="tk-title">
+      <h1 class="tk-head__title" id="tk-title">Track your order</h1>
+      <p class="tk-head__lead">Enter the order number from your confirmation and the mobile number you gave at checkout. We never show the full address or number back.</p>
+    </header>
+
+    <div class="tk-layout container">
+
+      <section class="tk-panel" aria-labelledby="tk-form-title">
+        <h2 class="tk-panel__title" id="tk-form-title" tabindex="-1">Find your order</h2>
+
+        <form class="tk-form" method="post" action="#" data-track-form novalidate>
+          <div class="tk-notice" role="alert" data-track-alert></div>
+
+          <div class="field">
+            <label class="field__label" for="tk-number">Order number</label>
+            <input class="field__input tk-input-number" id="tk-number" name="order" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" placeholder="ORD-123456" aria-describedby="tk-number-hint">
+            <p class="field__hint" id="tk-number-hint">Printed on your confirmation page</p>
+            <p class="field__error" id="tk-number-err" data-error-for="order"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="tk-phone">Mobile number used at checkout</label>
+            <input class="field__input" id="tk-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="0300 1234567" aria-describedby="tk-phone-hint">
+            <p class="field__hint" id="tk-phone-hint">Any format works, for example 0300 1234567 or +92 300 1234567</p>
+            <p class="field__error" id="tk-phone-err" data-error-for="phone"></p>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg btn--block tk-form__submit">Track order</button>
+        </form>
+
+        <p class="tk-panel__note">Orders are kept only in the browser they were placed from, so look yours up on that device.</p>
+        <p class="tk-panel__note concept-note" data-concept-note>Concept store: orders and messages are not delivered.</p>
+      </section>
+
+      <div class="tk-stage" data-track-stage>
+        <!-- What each status means; replaced by the result once an order is found -->
+        <section class="tk-legend" data-track-legend aria-labelledby="tk-legend-title">
+          <h2 class="tk-legend__title" id="tk-legend-title">What each status means</h2>
+          <ol class="tk-legend__list" data-track-legend-list></ol>
+        </section>
+      </div>
+    </div>
+
+    <p class="sr-only" role="status" aria-live="polite" data-track-live></p>
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/cart-shared.js"></script>
+  <script src="assets/js/pages/track.js"></script>
+</body>
+</html>
