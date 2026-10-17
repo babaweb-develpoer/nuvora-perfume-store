@@ -1,0 +1,256 @@
+<!doctype html>
+<!-- Style guide / kitchen sink for the design system (Task 7). Not linked from the shop. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design system | Nuvora</title>
+  <meta name="description" content="Nuvora design system: type, colour, buttons, product cards, form fields and overlays.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Design system | Nuvora">
+  <meta property="og:description" content="Nuvora design system.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <style>
+    /* Style-guide-only layout helpers (not part of the design system). */
+    .sg-section { padding-block: clamp(56px, 7vw, 96px); border-top: 1px solid var(--border); }
+    .sg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .sg-swatch { display: grid; gap: 10px; font-size: 0.8125rem; color: var(--muted); }
+    .sg-swatch span:first-child { height: 72px; border: 1px solid var(--border); }
+    .sg-swatch b { color: var(--ivory); font-weight: 500; }
+    .sg-type { display: grid; gap: 22px; }
+    .sg-type p.sg-meta { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.04em; }
+    .sg-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px; }
+    .sg-media { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 900px) {
+      .sg-media { grid-template-columns: 2fr 1fr 1fr; }
+      .sg-two { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+    }
+    .sg-two > * + * { margin-top: 48px; }
+    @media (min-width: 900px) { .sg-two > * + * { margin-top: 0; } }
+    .sg-form { display: grid; gap: 22px; max-width: 520px; }
+  </style>
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body data-nav="">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="container">
+        <header class="section-heading reveal">
+          <p class="section-heading__eyebrow">Design system</p>
+          <h1 class="section-heading__title">The <span data-shop-name>Nuvora</span> design system</h1>
+          <p class="section-heading__lead">Every component the storefront is built from, shown in one place. Images below are intentionally missing so the placeholders are visible.</p>
+        </header>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-colour">
+      <div class="container">
+        <header class="section-heading">
+          <p class="section-heading__eyebrow">Colour</p>
+          <h2 class="section-heading__title" id="sg-colour">Night, gold and ivory</h2>
+        </header>
+        <div class="sg-swatches">
+          <div class="sg-swatch"><span style="background: var(--bg)"></span><b>Background</b>#0B0B0C</div>
+          <div class="sg-swatch"><span style="background: var(--surface)"></span><b>Surface</b>#141416</div>
+          <div class="sg-swatch"><span style="background: var(--raised)"></span><b>Raised</b>#1B1B1E</div>
+          <div class="sg-swatch"><span style="background: var(--gold)"></span><b>Gold</b>#C9A24B</div>
+          <div class="sg-swatch"><span style="background: var(--gold-soft)"></span><b>Gold soft</b>#E4C77D</div>
+          <div class="sg-swatch"><span style="background: var(--ivory)"></span><b>Ivory</b>#F2EBDD</div>
+          <div class="sg-swatch"><span style="background: var(--muted)"></span><b>Muted</b>#A89F8C</div>
+          <div class="sg-swatch"><span style="background: var(--danger)"></span><b>Danger</b>#E59585</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-type">
+      <div class="container sg-type">
+        <header class="section-heading">
+          <p class="section-heading__eyebrow">Type</p>
+          <h2 class="section-heading__title" id="sg-type">Cormorant Garamond and Inter</h2>
+        </header>
+        <p class="display">Oud, aged in cedar</p>
+        <p class="sg-meta">.display / Cormorant Garamond 300</p>
+        <h2>Section title, light and generous</h2>
+        <h3>Product name</h3>
+        <p class="lead">Lead paragraph in Inter, set in the muted ivory for long reading. Saffron opens like a lit lantern, then rose softens the smoke into something regal.</p>
+        <p class="eyebrow">Eyebrow label</p>
+        <p class="label">Small label</p>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-buttons">
+      <div class="container">
+        <header class="section-heading">
+          <p class="section-heading__eyebrow">Actions</p>
+          <h2 class="section-heading__title" id="sg-buttons">Buttons, badges and chips</h2>
+        </header>
+        <div class="stack" style="--stack-gap: 32px">
+          <div class="sg-row">
+            <a class="btn btn--primary" href="shop.html">Shop the collection</a>
+            <button type="button" class="btn btn--ghost">Find your scent</button>
+            <a class="btn btn--text" href="about.html">Our story</a>
+            <button type="button" class="btn btn--primary" disabled>Sold out</button>
+          </div>
+          <div class="sg-row">
+            <button type="button" class="btn btn--primary btn--lg">Add to bag</button>
+            <button type="button" class="btn btn--ghost btn--sm">Apply</button>
+            <button type="button" class="btn btn--primary btn--sm" data-open-cart>Open bag</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="sg-toast">Show a toast</button>
+          </div>
+          <div class="sg-row">
+            <span class="badge badge--gold">Bestseller</span>
+            <span class="badge badge--new">New</span>
+            <span class="badge badge--low">Low stock</span>
+            <span class="badge badge--sold">Sold out</span>
+            <span class="star-rating" id="sg-stars"></span>
+          </div>
+          <div class="chip-group" role="group" aria-label="Scent family">
+            <button type="button" class="chip" aria-pressed="true">Oud</button>
+            <button type="button" class="chip" aria-pressed="false">Woody</button>
+            <button type="button" class="chip" aria-pressed="false">Floral</button>
+            <button type="button" class="chip" aria-pressed="false">Fresh</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-cards">
+      <div class="container">
+        <header class="section-heading section-heading--split">
+          <p class="section-heading__eyebrow">Commerce</p>
+          <h2 class="section-heading__title" id="sg-cards">Product cards</h2>
+          <p class="section-heading__lead">Hearts and quick add are wired by ui.js. Quick add puts 50 ml in the bag and opens it.</p>
+        </header>
+        <div class="grid grid--products" id="sg-products"></div>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-media">
+      <div class="container">
+        <header class="section-heading">
+          <p class="section-heading__eyebrow">Media</p>
+          <h2 class="section-heading__title" id="sg-media">Placeholders and skeletons</h2>
+        </header>
+        <div class="sg-media" id="sg-media-grid"></div>
+        <div class="stack" style="margin-top: 32px; max-width: 420px; --stack-gap: 12px" aria-hidden="true">
+          <div class="skeleton" style="height: 14px; width: 40%"></div>
+          <div class="skeleton" style="height: 28px; width: 80%"></div>
+          <div class="skeleton" style="height: 14px; width: 60%"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-controls">
+      <div class="container sg-two">
+        <div>
+          <header class="section-heading">
+            <p class="section-heading__eyebrow">Disclosure</p>
+            <h2 class="section-heading__title" id="sg-controls">Tabs and accordion</h2>
+          </header>
+          <div class="tabs">
+            <div class="tabs__list" role="tablist" aria-label="Product details">
+              <button type="button" class="tabs__tab" role="tab" id="sg-tab-1" aria-selected="true" aria-controls="sg-panel-1" tabindex="0">Description</button>
+              <button type="button" class="tabs__tab" role="tab" id="sg-tab-2" aria-selected="false" aria-controls="sg-panel-2" tabindex="-1">How to wear</button>
+              <button type="button" class="tabs__tab" role="tab" id="sg-tab-3" aria-selected="false" aria-controls="sg-panel-3" tabindex="-1">Reviews</button>
+            </div>
+            <div class="tabs__panel" role="tabpanel" id="sg-panel-1" aria-labelledby="sg-tab-1" tabindex="0">
+              <p class="muted">A ceremonial oud aged in cedar casks until it turns dark, smooth and resinous.</p>
+            </div>
+            <div class="tabs__panel" role="tabpanel" id="sg-panel-2" aria-labelledby="sg-tab-2" tabindex="0" hidden>
+              <p class="muted">Two sprays on the pulse points. Let it settle before you judge it.</p>
+            </div>
+            <div class="tabs__panel" role="tabpanel" id="sg-panel-3" aria-labelledby="sg-tab-3" tabindex="0" hidden>
+              <p class="muted">212 reviews, averaging 4.8 out of 5.</p>
+            </div>
+          </div>
+          <div class="accordion" style="margin-top: 48px">
+            <details class="accordion__item" open>
+              <summary class="accordion__summary">How long does delivery take?</summary>
+              <div class="accordion__content"><p>Orders are dispatched within 1 to 2 working days, then arrive in 2 to 5 working days anywhere in Pakistan.</p></div>
+            </details>
+            <details class="accordion__item">
+              <summary class="accordion__summary">Can I pay cash on delivery?</summary>
+              <div class="accordion__content"><p>Yes. Every order is cash on delivery, and you can inspect the seal before paying.</p></div>
+            </details>
+            <details class="accordion__item">
+              <summary class="accordion__summary">Are the fragrances original?</summary>
+              <div class="accordion__content"><p>Every bottle is sourced from the house and arrives sealed.</p></div>
+            </details>
+          </div>
+        </div>
+
+        <div>
+          <header class="section-heading">
+            <p class="section-heading__eyebrow">Forms</p>
+            <h2 class="section-heading__title">Fields and inline errors</h2>
+          </header>
+          <form class="sg-form" method="post" action="#" novalidate>
+            <div class="field">
+              <label class="field__label" for="sg-name">Full name<span class="field__req" aria-hidden="true">*</span></label>
+              <input class="field__input" id="sg-name" name="name" autocomplete="name" required aria-describedby="sg-name-error">
+              <p class="field__error" id="sg-name-error">Enter your full name.</p>
+            </div>
+            <div class="field is-invalid">
+              <label class="field__label" for="sg-phone">Mobile number</label>
+              <p class="field__hint" id="sg-phone-hint">Format: 0300 1234567</p>
+              <input class="field__input" id="sg-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" value="0300 12" aria-invalid="true" aria-describedby="sg-phone-hint sg-phone-error">
+              <p class="field__error" id="sg-phone-error">Enter a Pakistani mobile number, for example 0300 1234567.</p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="sg-city">Province</label>
+              <select class="field__select" id="sg-city" name="province">
+                <option>Punjab</option><option>Sindh</option><option>Khyber Pakhtunkhwa</option><option>Balochistan</option><option>Islamabad Capital Territory</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="sg-notes">Delivery notes</label>
+              <textarea class="field__textarea" id="sg-notes" name="notes" placeholder="Landmark, preferred time"></textarea>
+            </div>
+            <label class="check"><input type="checkbox" checked> <span>Gift wrap this order</span></label>
+            <div class="sg-row">
+              <div class="qty-stepper" role="group" aria-label="Quantity">
+                <button type="button" class="qty-stepper__btn" aria-label="Decrease quantity" disabled><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+                <span class="qty-stepper__value">1</span>
+                <button type="button" class="qty-stepper__btn" aria-label="Increase quantity"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+              <span class="price"><span class="price__from">From</span> PKR 7,800</span>
+              <span class="price price--compare">PKR 9,000</span>
+              <span class="price price--lg">PKR 12,400</span>
+            </div>
+            <div style="max-width: 320px">
+              <p class="label" style="margin-bottom: 10px">Free delivery progress</p>
+              <div class="progress-bar" role="progressbar" aria-label="Progress to free delivery" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"><span class="progress-bar__fill" style="--progress-ratio: 0.62"></span></div>
+            </div>
+            <button class="btn btn--primary" type="submit">Place order</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/styleguide.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuvora | Luxury fragrances in Pakistan</title>
+  <meta name="description" content="Original oud, leather, floral and fresh fragrances from four independent houses, sealed and delivered across Pakistan with cash on delivery.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Nuvora | Luxury fragrances in Pakistan">
+  <meta property="og:description" content="Original oud, leather, floral and fresh fragrances from four independent houses, sealed and delivered across Pakistan with cash on delivery.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- The hero still (hero-1) is the largest paint: fetch it before ui.js writes its <img> -->
+  <link rel="preload" as="image" href="assets/img/hero-1.jpg" fetchpriority="high">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-home" data-nav="home" data-header="overlay">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <!-- Hero: hero-1 still behind the hero-video loop; copy sits on the empty left third -->
+    <section class="home-hero" data-section="hero" aria-labelledby="home-hero-title">
+      <div class="home-hero__stage" aria-hidden="true">
+        <div class="home-hero__still" data-media="hero-1" data-eager></div>
+        <div class="home-hero__video" data-media="hero-video"></div>
+      </div>
+      <div class="home-hero__inner container">
+        <div class="home-hero__copy">
+          <h1 class="home-hero__title" id="home-hero-title">
+            <span class="home-hero__line"><span>The art of</span></span>
+            <span class="home-hero__line"><span>being remembered.</span></span>
+          </h1>
+          <p class="home-hero__lead">Oud, leather, rose and sun-warmed citrus from four independent houses. Every bottle arrives sealed, and you pay at your door, anywhere in Pakistan.</p>
+          <div class="home-hero__actions">
+            <a class="btn btn--primary btn--lg" href="shop.html">Shop the collection</a>
+            <a class="btn btn--text home-hero__quiz" href="scent-quiz.html">Find your scent</a>
+          </div>
+        </div>
+      </div>
+      <p class="home-hero__caption">Now in store <a href="shop.html">The autumn collection</a></p>
+    </section>
+
+    <!-- Trust strip: one quiet row of promises -->
+    <section class="home-trust" data-section="trust" aria-label="Our promises">
+      <div class="container">
+        <ul class="home-trust__list" data-trust></ul>
+      </div>
+    </section>
+
+    <!-- Categories: asymmetric mosaic -->
+    <section class="section home-cats" data-section="categories" aria-labelledby="home-cats-title">
+      <div class="container">
+        <header class="home-head reveal">
+          <h2 class="home-head__title" id="home-cats-title">Where to begin</h2>
+          <p class="home-head__lead">Smoky woods for him, luminous florals for her, oud that belongs to everyone, and gifts ready to give.</p>
+        </header>
+        <div class="home-cats__grid">
+          <a class="home-tile home-tile--men reveal" href="shop.html?genders=men">
+            <div class="home-tile__media" data-media="cat-men"></div>
+            <div class="home-tile__text">
+              <h3 class="home-tile__title">Men</h3>
+              <p class="home-tile__note">Leather, cedar and smoke</p>
+            </div>
+            <span class="home-tile__arrow" data-icon="arrow"></span>
+          </a>
+          <a class="home-tile home-tile--women reveal" href="shop.html?genders=women" style="--reveal-delay: 80ms">
+            <div class="home-tile__media" data-media="cat-women"></div>
+            <div class="home-tile__text">
+              <h3 class="home-tile__title">Women</h3>
+              <p class="home-tile__note">Rose, jasmine and silk</p>
+            </div>
+            <span class="home-tile__arrow" data-icon="arrow"></span>
+          </a>
+          <a class="home-tile home-tile--unisex reveal" href="shop.html?genders=unisex" style="--reveal-delay: 160ms">
+            <div class="home-tile__media" data-media="cat-unisex-oud"></div>
+            <div class="home-tile__text">
+              <h3 class="home-tile__title">Unisex &amp; Oud</h3>
+              <p class="home-tile__note">Oud, amber and saffron</p>
+            </div>
+            <span class="home-tile__arrow" data-icon="arrow"></span>
+          </a>
+          <a class="home-tile home-tile--gift reveal" href="shop.html?q=gift" style="--reveal-delay: 240ms">
+            <div class="home-tile__media" data-media="cat-gift"></div>
+            <div class="home-tile__text">
+              <h3 class="home-tile__title">Gifts</h3>
+              <p class="home-tile__note">Boxed in black, tied in gold</p>
+            </div>
+            <span class="home-tile__arrow" data-icon="arrow"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bestsellers -->
+    <section class="section home-best" data-section="bestsellers" aria-labelledby="home-best-title">
+      <div class="container">
+        <header class="home-head home-head--split reveal">
+          <h2 class="home-head__title" id="home-best-title">The bottles people come back for</h2>
+          <div class="home-head__aside">
+            <p class="home-head__lead">Our most reordered fragrances this season, in sizes from travel to signature.</p>
+            <a class="btn btn--text" href="shop.html">View all fragrances</a>
+          </div>
+        </header>
+        <div class="home-best__grid" data-bestsellers></div>
+      </div>
+    </section>
+
+    <!-- Find Your Scent teaser -->
+    <section class="section home-quiz" data-section="quiz" aria-labelledby="home-quiz-title">
+      <div class="container home-quiz__inner">
+        <div class="home-quiz__copy reveal">
+          <h2 class="home-quiz__title" id="home-quiz-title">Five questions to your signature</h2>
+          <p class="home-quiz__lead">Tell us where you will wear it and what you are drawn to. We rank the whole collection for you, in about a minute.</p>
+          <a class="btn btn--ghost" href="scent-quiz.html">Take the scent quiz</a>
+        </div>
+        <ol class="home-quiz__steps reveal" style="--reveal-delay: 120ms" aria-label="What the quiz asks">
+          <li><span class="home-quiz__num" aria-hidden="true">1</span>The occasion</li>
+          <li><span class="home-quiz__num" aria-hidden="true">2</span>The season</li>
+          <li><span class="home-quiz__num" aria-hidden="true">3</span>How bold it should be</li>
+          <li><span class="home-quiz__num" aria-hidden="true">4</span>The family you love</li>
+          <li><span class="home-quiz__num" aria-hidden="true">5</span>What you would like to spend</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- House showcase: an editorial index of the four houses -->
+    <section class="section home-houses" data-section="houses" aria-labelledby="home-houses-title">
+      <div class="container">
+        <header class="home-head home-head--split reveal">
+          <h2 class="home-head__title" id="home-houses-title">Four houses, one standard</h2>
+          <div class="home-head__aside">
+            <p class="home-head__lead">We carry independent perfumers only, and every bottle comes to us sealed from the house itself.</p>
+          </div>
+        </header>
+        <ul class="home-houses__list" data-houses></ul>
+      </div>
+    </section>
+
+    <!-- Gift banner: banner-3 (black gift boxes tied in gold, on the right) full
+         bleed, copy on its empty left; the wrapping itself is shown in the
+         Gift wrapping section of shipping & returns -->
+    <section class="home-gift" data-section="gift" aria-labelledby="home-gift-title">
+      <div class="home-gift__stage" aria-hidden="true" data-media="banner-3"></div>
+      <div class="home-gift__inner container">
+        <div class="home-gift__copy reveal">
+          <h2 class="home-gift__title" id="home-gift-title">Wrapped by hand, ready to give</h2>
+          <p class="home-gift__lead" data-gift-copy>Any bottle can travel in our black gift box, tied with a gold ribbon.</p>
+          <p class="home-gift__code" data-gift-code hidden></p>
+          <div class="home-gift__actions">
+            <a class="btn btn--primary" href="shop.html?q=gift">Shop gifts</a>
+            <a class="btn btn--text" href="shipping-returns.html#gifting">See how we wrap</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section home-words" data-section="testimonials" aria-labelledby="home-words-title">
+      <div class="container">
+        <h2 class="home-words__title reveal" id="home-words-title">Worn across Pakistan</h2>
+        <div class="home-words__grid">
+          <figure class="home-quote home-quote--feature reveal">
+            <blockquote>
+              <p>I wore Oud Royale to my sister&rsquo;s mehndi, and three aunties asked what it was before the night was over.</p>
+            </blockquote>
+            <figcaption><span class="home-quote__name">Hira Sheikh</span><span class="home-quote__meta">Lahore, on Oud Royale</span></figcaption>
+          </figure>
+          <figure class="home-quote reveal" style="--reveal-delay: 100ms">
+            <blockquote>
+              <p>Ordered on Monday, paid cash at the door on Wednesday. The bottle was sealed and boxed like a present.</p>
+            </blockquote>
+            <figcaption><span class="home-quote__name">Usman Khalid</span><span class="home-quote__meta">Multan, on Black Leather</span></figcaption>
+          </figure>
+          <figure class="home-quote reveal" style="--reveal-delay: 200ms">
+            <blockquote>
+              <p>Jasmine Silk lasts through a full day at the office and still smells like fresh flowers at dinner.</p>
+            </blockquote>
+            <figcaption><span class="home-quote__name">Mehreen Aslam</span><span class="home-quote__meta">Islamabad, on Jasmine Silk</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter: validates, then thanks the visitor; stores nothing, sends nothing -->
+    <section class="section home-letter" data-section="newsletter" aria-labelledby="home-letter-title">
+      <div class="container home-letter__inner">
+        <div class="home-letter__copy">
+          <h2 class="home-letter__title" id="home-letter-title">Letters from the atelier</h2>
+          <p class="home-letter__lead">New releases, restocks and the occasional private offer. One email a month, never more.</p>
+        </div>
+        <div class="home-letter__panel" data-letter>
+          <form class="home-letter__form" method="post" action="#" novalidate data-letter-form>
+            <div class="field">
+              <label class="field__label" for="letter-email">Email address</label>
+              <div class="home-letter__row">
+                <input class="field__input" id="letter-email" name="email" type="email" autocomplete="email" inputmode="email"
+                  spellcheck="false" placeholder="you@example.com" required aria-describedby="letter-hint">
+                <button class="btn btn--primary" type="submit">Subscribe</button>
+              </div>
+              <p class="field__error" id="letter-error">Enter a full email address, with an @ and a domain, for example .com or .pk.</p>
+              <p class="field__hint concept-note" id="letter-hint" data-concept-note>Concept store: orders and messages are not delivered.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/seo.js"></script>
+  <script src="assets/js/pages/home.js"></script>
+</body>
+</html>

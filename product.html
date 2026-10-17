@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fragrance | Nuvora</title>
+  <meta name="description" content="Notes, sizes and prices in PKR for an original fragrance from an independent house. Cash on delivery across Pakistan, with seven-day returns.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph (title and description are refreshed by product.js) -->
+  <meta property="og:type" content="product">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Fragrance | Nuvora">
+  <meta property="og:description" content="Notes, sizes and prices in PKR for an original fragrance from an independent house. Cash on delivery across Pakistan, with seven-day returns.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-product" data-nav="shop">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <!-- ============================================================ product
+         Filled by product.js from ?id= (or ?slug=). Removed when the id is unknown. -->
+    <div class="pdp" data-pdp hidden>
+
+      <div class="container">
+        <nav class="pdp-crumbs" aria-label="Breadcrumb">
+          <ol class="pdp-crumbs__list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="shop.html" data-crumb-house></a></li>
+            <li><span aria-current="page" data-crumb-name></span></li>
+          </ol>
+        </nav>
+
+        <div class="pdp-hero">
+          <!-- Gallery: one framed image (the manifest holds one photograph per product) -->
+          <figure class="pdp-figure">
+            <div class="pdp-figure__frame" data-pdp-media></div>
+            <div class="pdp-figure__badges" data-pdp-badges></div>
+          </figure>
+
+          <!-- Purchase column -->
+          <div class="pdp-buy">
+            <a class="pdp-buy__house" href="shop.html" data-pdp-house></a>
+            <h1 class="pdp-buy__name" data-pdp-name></h1>
+            <a class="pdp-buy__rating" href="#pdp-details" data-pdp-rating></a>
+            <p class="pdp-buy__lead" data-pdp-lead></p>
+
+            <p class="pdp-buy__price">
+              <span class="sr-only">Price: </span>
+              <span class="price price--lg" data-pdp-price></span>
+              <span class="pdp-buy__price-size" data-pdp-price-size></span>
+            </p>
+
+            <form class="pdp-form" method="post" action="#" data-pdp-form novalidate>
+              <fieldset class="pdp-sizes" role="radiogroup">
+                <legend class="pdp-label">Size</legend>
+                <div class="pdp-sizes__list" data-pdp-sizes></div>
+              </fieldset>
+
+              <div class="pdp-qty">
+                <div class="pdp-qty__control">
+                  <label class="pdp-label" for="pdp-qty">Quantity</label>
+                  <div class="qty-stepper pdp-stepper">
+                    <button type="button" class="qty-stepper__btn" data-qty-step="-1" aria-label="Decrease quantity" aria-controls="pdp-qty"><span data-icon="minus"></span></button>
+                    <input class="pdp-stepper__input" id="pdp-qty" name="qty" type="text" inputmode="numeric" pattern="[0-9]*"
+                      value="1" autocomplete="off" enterkeyhint="done" aria-describedby="pdp-stock">
+                    <button type="button" class="qty-stepper__btn" data-qty-step="1" aria-label="Increase quantity" aria-controls="pdp-qty"><span data-icon="plus"></span></button>
+                  </div>
+                </div>
+                <p class="pdp-stock" id="pdp-stock" data-pdp-stock></p>
+              </div>
+
+              <label class="check pdp-gift" data-pdp-gift>
+                <input type="checkbox" name="gift" data-pdp-gift-input>
+                <span class="pdp-gift__text">Add luxury gift wrap <span class="pdp-gift__fee" data-pdp-gift-fee></span></span>
+              </label>
+
+              <div class="pdp-actions">
+                <button type="submit" class="btn btn--primary btn--lg pdp-add" data-pdp-add>Add to bag</button>
+                <button type="button" class="pdp-wish" data-pdp-wish aria-pressed="false"><span data-icon="heart"></span></button>
+              </div>
+              <p class="pdp-notice" data-pdp-notice role="status" hidden></p>
+              <p class="pdp-similar" data-pdp-similar hidden>
+                This fragrance is sold out for now.
+                <a class="pdp-similar__link" href="shop.html" data-pdp-similar-link>Browse similar fragrances</a>
+              </p>
+            </form>
+
+            <ul class="pdp-trust" data-pdp-trust aria-label="Delivery and returns"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes pyramid: three tiers drawn as one hairline triangle -->
+      <section class="pdp-notes" aria-labelledby="pdp-notes-title" data-pdp-notes>
+        <div class="container pdp-notes__inner">
+          <header class="pdp-notes__head">
+            <h2 class="pdp-notes__title" id="pdp-notes-title" data-pdp-notes-title>How it unfolds</h2>
+            <p class="pdp-notes__lead">Perfume is worn in three movements. The brightest notes lift first and fade, the heart arrives as they settle, and the base is what stays with you.</p>
+          </header>
+
+          <div class="pdp-pyramid reveal">
+            <svg class="pdp-pyramid__shape" viewBox="0 0 120 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <polygon class="pdp-pyramid__fill pdp-pyramid__fill--top" points="60,0 80,100 40,100"/>
+              <polygon class="pdp-pyramid__fill pdp-pyramid__fill--heart" points="40,100 80,100 100,200 20,200"/>
+              <polygon class="pdp-pyramid__fill pdp-pyramid__fill--base" points="20,200 100,200 120,300 0,300"/>
+              <line class="pdp-pyramid__rule" x1="40" y1="100" x2="80" y2="100" vector-effect="non-scaling-stroke"/>
+              <line class="pdp-pyramid__rule" x1="20" y1="200" x2="100" y2="200" vector-effect="non-scaling-stroke"/>
+              <polygon class="pdp-pyramid__outline" points="60,0 120,300 0,300" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <div class="pdp-pyramid__tier" data-tier="top">
+              <h3 class="pdp-pyramid__label">Top notes</h3>
+              <p class="pdp-pyramid__when">The first impression, in the opening minutes</p>
+              <ul class="pdp-pyramid__notes" data-notes-list></ul>
+            </div>
+            <div class="pdp-pyramid__tier" data-tier="heart">
+              <h3 class="pdp-pyramid__label">Heart notes</h3>
+              <p class="pdp-pyramid__when">The character, over the next few hours</p>
+              <ul class="pdp-pyramid__notes" data-notes-list></ul>
+            </div>
+            <div class="pdp-pyramid__tier" data-tier="base">
+              <h3 class="pdp-pyramid__label">Base notes</h3>
+              <p class="pdp-pyramid__when">The trail that stays on skin and cloth</p>
+              <ul class="pdp-pyramid__notes" data-notes-list></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details: description, how to wear, reviews (tabs are wired by ui.js) -->
+      <section class="pdp-details" id="pdp-details" aria-labelledby="pdp-details-title">
+        <div class="container">
+          <h2 class="sr-only" id="pdp-details-title">Fragrance details</h2>
+          <div class="tabs pdp-tabs">
+            <div class="tabs__list" role="tablist" aria-label="About this fragrance">
+              <button type="button" class="tabs__tab" role="tab" id="pdp-tab-desc" aria-selected="true" aria-controls="pdp-panel-desc" tabindex="0">Description</button>
+              <button type="button" class="tabs__tab" role="tab" id="pdp-tab-wear" aria-selected="false" aria-controls="pdp-panel-wear" tabindex="-1">How to wear</button>
+              <button type="button" class="tabs__tab" role="tab" id="pdp-tab-reviews" aria-selected="false" aria-controls="pdp-panel-reviews" tabindex="-1">Reviews <span data-review-tab-count></span></button>
+            </div>
+
+            <div class="tabs__panel pdp-panel" role="tabpanel" id="pdp-panel-desc" aria-labelledby="pdp-tab-desc" tabindex="0">
+              <div class="pdp-desc">
+                <p class="pdp-desc__text" data-pdp-description></p>
+                <dl class="pdp-facts" data-pdp-facts></dl>
+              </div>
+            </div>
+
+            <div class="tabs__panel pdp-panel" role="tabpanel" id="pdp-panel-wear" aria-labelledby="pdp-tab-wear" tabindex="0" hidden>
+              <dl class="pdp-wear" data-pdp-wear></dl>
+            </div>
+
+            <div class="tabs__panel pdp-panel" role="tabpanel" id="pdp-panel-reviews" aria-labelledby="pdp-tab-reviews" hidden>
+              <div class="pdp-reviews">
+                <div class="pdp-reviews__summary">
+                  <p class="pdp-reviews__avg" data-review-avg></p>
+                  <div class="pdp-reviews__score">
+                    <span class="star-rating pdp-reviews__stars" data-review-stars></span>
+                    <p class="pdp-reviews__total" data-review-total></p>
+                  </div>
+                </div>
+
+                <div class="pdp-reviews__feed">
+                  <h3 class="pdp-reviews__heading">Written by customers</h3>
+                  <p class="pdp-reviews__status" data-review-status role="status" tabindex="-1"></p>
+                  <p class="pdp-reviews__empty" data-review-empty>No one has written about <span data-review-empty-name></span> yet. Tell the next person how it wears on you: when you reached for it, and what people noticed.</p>
+                  <ol class="pdp-reviews__list" data-review-list aria-label="Customer reviews, newest first"></ol>
+                </div>
+
+                <form class="pdp-review-form" method="post" action="#" data-review-form novalidate aria-labelledby="pdp-review-form-title">
+                  <h3 class="pdp-review-form__title" id="pdp-review-form-title">Write a review</h3>
+
+                  <div class="field">
+                    <label class="field__label" for="rv-name">Your name <span class="pdp-review-form__optional">(optional)</span></label>
+                    <input class="field__input" id="rv-name" name="name" type="text" maxlength="40" autocomplete="name">
+                  </div>
+
+                  <fieldset class="field pdp-rate-field" role="radiogroup" aria-required="true" data-rate-field>
+                    <legend class="field__label">Your rating <span class="field__req" aria-hidden="true">*</span></legend>
+                    <div class="pdp-rate" data-rate></div>
+                    <p class="field__error" id="rv-rating-error" data-error="rating">Choose a rating from one to five stars.</p>
+                  </fieldset>
+
+                  <div class="field">
+                    <label class="field__label" for="rv-text">Your review <span class="field__req" aria-hidden="true">*</span></label>
+                    <textarea class="field__textarea" id="rv-text" name="text" maxlength="600" rows="5" required
+                      aria-describedby="rv-text-count"></textarea>
+                    <p class="field__hint pdp-review-form__count" id="rv-text-count" data-review-count>0 of 600 characters</p>
+                    <p class="field__error" id="rv-text-error" data-error="text">Write a few words about the fragrance before posting.</p>
+                  </div>
+
+                  <p class="pdp-review-form__fail" data-review-fail role="alert"></p>
+                  <p class="pdp-review-form__note concept-note" data-review-note>Reviews stay in this browser: no one else sees them.</p>
+                  <button type="submit" class="btn btn--primary pdp-review-form__submit">Post review</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- You may also like -->
+      <section class="pdp-related" aria-labelledby="pdp-related-title">
+        <div class="container">
+          <h2 class="pdp-related__title" id="pdp-related-title">You may also like</h2>
+          <div class="grid grid--products pdp-related__grid" data-related></div>
+        </div>
+      </section>
+
+      <!-- Sticky purchase bar (below 900px, once the main button has scrolled away) -->
+      <div class="pdp-bar" data-buybar hidden>
+        <div class="pdp-bar__inner container">
+          <div class="pdp-bar__info">
+            <p class="pdp-bar__name" data-bar-name></p>
+            <p class="pdp-bar__meta"><span data-bar-size></span> <span class="price" data-bar-price></span></p>
+          </div>
+          <button type="button" class="btn btn--primary pdp-bar__add" data-bar-add>Add to bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================== not found -->
+    <section class="pdp-missing" data-notfound hidden aria-labelledby="pdp-missing-title">
+      <div class="container">
+        <div class="pdp-missing__intro">
+          <svg class="pdp-missing__mark" viewBox="0 0 48 76" width="48" height="76" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <rect x="17.5" y="2.5" width="13" height="11" rx="1"/>
+            <path d="M20.5 13.5v5h7v-5"/>
+            <path d="M14 18.5h20c3.6 0 6.5 2.9 6.5 6.5v42.5c0 2.8-2.2 5-5 5h-23c-2.8 0-5-2.2-5-5V25c0-3.6 2.9-6.5 6.5-6.5z"/>
+            <path d="M7.5 40.5h33" stroke-opacity=".45"/>
+          </svg>
+          <h1 class="pdp-missing__title" id="pdp-missing-title">We couldn't find that fragrance</h1>
+          <p class="pdp-missing__text">The link may be incomplete, or the fragrance is no longer in the collection. Everything we carry is on the shop page, and these are the bottles customers return to most.</p>
+          <a class="btn btn--primary" href="shop.html">Browse the collection</a>
+        </div>
+        <h2 class="pdp-missing__sub">Our bestsellers</h2>
+        <div class="grid grid--products pdp-related__grid" data-notfound-grid></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Questions, answered | Nuvora</title>
+  <meta name="description" content="Answers on authenticity, cash on delivery, delivery times and charges, returns and exchanges, gift wrapping and caring for your perfume.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Questions, answered | Nuvora">
+  <meta property="og:description" content="Answers on authenticity, cash on delivery, delivery times and charges, returns and exchanges, gift wrapping and caring for your perfume.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-faq" data-nav="">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <header class="cp-head container" aria-labelledby="faq-title">
+      <h1 class="cp-head__title" id="faq-title">Questions, answered</h1>
+      <p class="cp-head__lead">What people ask us most, before and after they order. If yours is not here, message us and a person will answer.</p>
+    </header>
+
+    <div class="faq-layout container">
+      <nav class="faq-rail" aria-label="Question categories">
+        <ul class="faq-rail__list" data-faq-rail data-toc></ul>
+      </nav>
+      <!-- Filled by faq.js from one data array, which also writes the FAQPage JSON-LD -->
+      <div class="faq-groups" data-faq-groups>
+        <noscript><p class="faq-noscript">Our answers need JavaScript to display. You can also <a href="contact.html">contact us</a> or read <a href="shipping-returns.html">Shipping &amp; returns</a>.</p></noscript>
+      </div>
+    </div>
+
+    <section class="faq-help" aria-labelledby="faq-help-title">
+      <div class="faq-help__inner container">
+        <div class="faq-help__copy">
+          <h2 class="faq-help__title" id="faq-help-title">Still need help?</h2>
+          <p class="faq-help__lead">Tell us what you are looking for, or send a photo of a bottle you once loved. We reply during opening hours, <span data-config="hours">six days a week</span>.</p>
+        </div>
+        <div class="faq-help__actions">
+          <a class="btn btn--primary" data-wa="Hello {shop}, I have a question your FAQ did not answer." data-wa-label="Message us on WhatsApp" href="contact.html">Message us</a>
+          <a class="btn btn--ghost" href="contact.html">Other ways to reach us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/content.js"></script>
+  <script src="assets/js/pages/faq.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+:root {
+  /* Colour */
+  --bg: #0B0B0C;
+  --surface: #141416;
+  --raised: #1B1B1E;
+  --border: rgba(255, 255, 255, 0.08);
+  --gold: #C9A24B;
+  --gold-soft: #E4C77D;
+  --ivory: #F2EBDD;
+  --muted: #A89F8C;
+
+  /* Fonts */
+  --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  /* Type scale */
+  --text-xs: clamp(0.75rem, 0.73rem + 0.1vw, 0.8125rem);
+  --text-sm: clamp(0.875rem, 0.85rem + 0.12vw, 0.9375rem);
+  --text-base: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --text-lg: clamp(1.125rem, 1.07rem + 0.25vw, 1.3125rem);
+  --text-xl: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.8rem + 2.2vw, 3.75rem);
+  --text-4xl: clamp(2.75rem, 2rem + 3.8vw, 5.5rem);
+
+  /* Spacing (8px base) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+  --space-12: 96px;
+
+  /* Layout */
+  --container-max: 1280px;
+  --gutter: 16px;
+  --radius: 4px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 240ms;
+
+  /* ---- Extended tokens (Task 7). Every colour in components.css comes from here. ---- */
+
+  /* Colour: states and tints */
+  --success: #9CC5A1;
+  --danger: #E59585;
+  --bg-deep: #070708;
+  --gold-ink: #0B0B0C;                       /* text on gold fills */
+  --gold-line: rgba(201, 162, 75, 0.34);     /* hairline gold borders */
+  --gold-hair: rgba(201, 162, 75, 0.16);     /* faint frames */
+  --gold-glow: rgba(201, 162, 75, 0.10);     /* radial washes */
+  --ivory-line: rgba(242, 235, 221, 0.14);
+  --ivory-faint: rgba(242, 235, 221, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --scrim: rgba(5, 5, 6, 0.72);
+  --header-bg: rgba(11, 11, 12, 0.86);
+  --danger-wash: rgba(229, 149, 133, 0.08);
+
+  /* Type */
+  --tracking-label: 0.2em;
+  --tracking-wide: 0.12em;
+  --measure: 62ch;
+
+  /* Layout */
+  --header-h: 64px;
+  --banner-h: 36.2px;                          /* demo banner: fixed, so the shell can be reserved before ui.js mounts it */
+  --radius-sm: 2px;
+  --section-y: clamp(72px, 9vw, 136px);
+  --bottom-bar-h: 0px;                        /* height of a page's fixed bottom bar (see .has-bottom-bar) */
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-med: 420ms;
+  --dur-slow: 700ms;
+
+  /* Layers */
+  --z-header: 40;
+  --z-float: 45;
+  --z-overlay: 60;
+  --z-toast: 80;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 32px; }
+}
+
+@media (min-width: 900px) {
+  :root { --header-h: 76px; }
+}

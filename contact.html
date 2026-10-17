@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact us | Nuvora</title>
+  <meta name="description" content="Write to us, email or visit the shop. Help with orders, scent advice and gifting, six days a week.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Contact us | Nuvora">
+  <meta property="og:description" content="Write to us, email or visit the shop. Help with orders, scent advice and gifting, six days a week.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-contact" data-nav="contact">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <header class="cp-head container" aria-labelledby="ct-title">
+      <h1 class="cp-head__title" id="ct-title">Contact us</h1>
+      <p class="cp-head__lead">Questions about a scent, an order or a gift? Write to us and a person from the shop answers during opening hours.</p>
+    </header>
+
+    <div class="ct-layout container">
+
+      <!-- Ways to reach us -->
+      <section class="ct-ways" aria-labelledby="ct-ways-title">
+        <h2 class="sr-only" id="ct-ways-title">Ways to reach us</h2>
+
+        <!-- With a WhatsApp number in config.js (content.js shows [data-wa-only], hides [data-wa-off]) -->
+        <div class="ct-way ct-way--feature" data-wa-only hidden>
+          <span class="ct-way__icon" data-icon="chat"></span>
+          <h3 class="ct-way__name">WhatsApp</h3>
+          <p class="ct-way__text">Send a photo of a bottle you liked, ask what suits a wedding in March, or check on an order. We reply in the same chat.</p>
+          <a class="btn btn--primary ct-way__btn" data-contact-wa data-wa="Hello {shop}, I would like some help, please." data-wa-label="Message us on WhatsApp" href="#ct-form-title">Message us</a>
+        </div>
+
+        <!-- Without one (the default) -->
+        <div class="ct-way ct-way--feature" data-wa-off>
+          <span class="ct-way__icon" data-icon="chat"></span>
+          <h3 class="ct-way__name">Write to us</h3>
+          <p class="ct-way__text">Ask what suits a wedding in March, describe a bottle you once loved, or check on an order. The form on this page is the quickest way.</p>
+          <a class="btn btn--primary ct-way__btn" data-contact-write href="#ct-form-title">Write a message</a>
+        </div>
+
+        <div class="ct-way">
+          <span class="ct-way__icon" data-icon="mail"></span>
+          <h3 class="ct-way__name">Email</h3>
+          <p class="ct-way__text"><a class="ct-link" data-contact-mail data-mailto href="contact.html"></a></p>
+          <p class="ct-way__note">Best for anything with attachments, such as a damaged parcel.</p>
+        </div>
+
+        <div class="ct-way" data-wa-only hidden>
+          <span class="ct-way__icon" data-icon="phone"></span>
+          <h3 class="ct-way__name">Call</h3>
+          <p class="ct-way__text"><a class="ct-link" data-contact-tel data-tel href="contact.html"></a></p>
+          <p class="ct-way__note" data-config="hours"></p>
+        </div>
+
+        <div class="ct-way">
+          <span class="ct-way__icon" data-icon="pin"></span>
+          <h3 class="ct-way__name">Visit the shop</h3>
+          <p class="ct-way__text" data-config="address"></p>
+          <p class="ct-way__note">Open <span data-config="hours"></span>. Try anything on skin before you decide.</p>
+        </div>
+      </section>
+
+      <!-- The message form: validates, then thanks the visitor; it sends and stores nothing -->
+      <section class="ct-panel" aria-labelledby="ct-form-title">
+        <h2 class="ct-panel__title" id="ct-form-title">Send us a message</h2>
+        <p class="ct-panel__note concept-note" data-concept-note>Concept store: orders and messages are not delivered.</p>
+
+        <form class="ct-form" method="post" action="#" novalidate data-contact-form>
+          <div class="ct-form__row">
+            <div class="field">
+              <label class="field__label" for="ct-name">Name <span class="field__req" aria-hidden="true">*</span></label>
+              <input class="field__input" id="ct-name" name="name" type="text" autocomplete="name" maxlength="80" aria-required="true">
+              <p class="field__error" id="ct-name-err"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ct-phone">Mobile <span class="ct-optional">(optional)</span></label>
+              <input class="field__input" id="ct-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="0300 1234567" aria-describedby="ct-phone-hint">
+              <p class="field__hint" id="ct-phone-hint">If you would like a call back</p>
+              <p class="field__error" id="ct-phone-err"></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="ct-email">Email <span class="field__req" aria-hidden="true">*</span></label>
+            <input class="field__input" id="ct-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" maxlength="120" placeholder="you@example.com" aria-required="true">
+            <p class="field__error" id="ct-email-err"></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="ct-topic">What is it about?</label>
+            <select class="field__select" id="ct-topic" name="topic">
+              <option>Order help</option>
+              <option>Product advice</option>
+              <option>Gifting</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="ct-message">Message <span class="field__req" aria-hidden="true">*</span></label>
+            <textarea class="field__textarea" id="ct-message" name="message" rows="6" maxlength="1000" aria-required="true" aria-describedby="ct-message-hint"></textarea>
+            <div class="ct-form__meta">
+              <p class="field__hint" id="ct-message-hint">At least 10 characters</p>
+              <p class="field__hint ct-count"><span data-ct-count>1000</span> left</p>
+            </div>
+            <p class="field__error" id="ct-message-err"></p>
+          </div>
+          <p class="sr-only" aria-live="polite" data-ct-live></p>
+
+          <p class="ct-form__req"><span class="field__req" aria-hidden="true">*</span> Required</p>
+          <button type="submit" class="btn btn--primary btn--lg btn--block">Send message</button>
+        </form>
+
+        <div class="ct-success" data-contact-success tabindex="-1" role="status" hidden>
+          <span class="ct-success__icon" data-icon="check"></span>
+          <p class="ct-success__title">Thank you. Messages from this site are not delivered.</p>
+          <p class="ct-success__note">Nothing you typed was saved either.<span data-wa-only hidden> For an answer now, <a class="ct-link" data-wa href="contact.html">message us on WhatsApp</a>.</span></p>
+          <button type="button" class="btn btn--ghost btn--sm" data-contact-again>Write another message</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Answers that may save a message -->
+    <section class="ct-before" aria-labelledby="ct-before-title">
+      <div class="container">
+        <h2 class="ct-before__title" id="ct-before-title">Before you write</h2>
+        <ul class="ct-before__list">
+          <li><a class="ct-before__link" href="track-order.html"><span class="ct-before__name">Where is my order?</span><span class="ct-before__text">Your order number and mobile number show every step.</span></a></li>
+          <li><a class="ct-before__link" href="shipping-returns.html#returns"><span class="ct-before__name">Returning a bottle</span><span class="ct-before__text">Seven days, unopened, and we collect it.</span></a></li>
+          <li><a class="ct-before__link" href="faq.html"><span class="ct-before__name">Everything else</span><span class="ct-before__text">Authenticity, payment, delivery and care, answered.</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/content.js"></script>
+  <script src="assets/js/pages/contact.js"></script>
+</body>
+</html>

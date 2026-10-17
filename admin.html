@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Back office | Nuvora</title>
+  <meta name="description" content="Back office for Nuvora: orders, 30-day sales, products and low stock.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nuvora">
+  <meta property="og:title" content="Back office | Nuvora">
+  <meta property="og:description" content="Back office for Nuvora: orders, 30-day sales, products and low stock.">
+  <meta property="og:image" content="https://babaweb-develpoer.github.io/nuvora-perfume-store/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: Cormorant Garamond 300-600 (+ italic) and Inter 300-600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <!-- config.js is tiny and synchronous: with demoBanner off it tags <html class="no-banner"> before first paint -->
+  <script src="assets/js/config.js"></script>
+</head>
+<body class="page-admin" data-nav="">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <div class="ad-strip">
+      <div class="ad-strip__inner container">
+        <p class="ad-strip__text"><strong>Back office</strong> <span class="ad-strip__sep" aria-hidden="true">&middot;</span> <span>Generated sales history plus orders placed in this browser</span></p>
+        <p class="ad-strip__key" aria-hidden="true">
+          <span class="ad-origin ad-origin--live">This browser</span><span class="ad-strip__key-text">orders placed here</span>
+          <span class="ad-origin ad-origin--sample">Generated</span><span class="ad-strip__key-text">sales history</span>
+        </p>
+      </div>
+    </div>
+
+    <header class="ad-head container" aria-labelledby="ad-title">
+      <h1 class="ad-head__title" id="ad-title">Dashboard</h1>
+      <p class="ad-head__meta"><span data-range>Last 30 days</span> <span class="ad-head__tz">Pakistan time</span></p>
+    </header>
+
+    <section class="ad-stats container" aria-label="Key figures, last 30 days">
+      <dl class="ad-stats__grid">
+        <div class="ad-stat">
+          <dt class="ad-stat__label">Orders</dt>
+          <dd class="ad-stat__value" data-stat="orders">0</dd>
+          <dd class="ad-stat__sub" data-stat-sub="orders"></dd>
+        </div>
+        <div class="ad-stat">
+          <dt class="ad-stat__label">Revenue</dt>
+          <dd class="ad-stat__value" data-stat="revenue">PKR 0</dd>
+          <dd class="ad-stat__sub" data-stat-sub="revenue"></dd>
+        </div>
+        <div class="ad-stat">
+          <dt class="ad-stat__label">Average order</dt>
+          <dd class="ad-stat__value" data-stat="aov">PKR 0</dd>
+          <dd class="ad-stat__sub" data-stat-sub="aov"></dd>
+        </div>
+        <div class="ad-stat">
+          <dt class="ad-stat__label">Low stock</dt>
+          <dd class="ad-stat__value" data-stat="low">0</dd>
+          <dd class="ad-stat__sub" data-stat-sub="low"></dd>
+        </div>
+      </dl>
+    </section>
+
+    <div class="ad-board container">
+
+      <section class="ad-panel ad-sales" aria-labelledby="ad-sales-title">
+        <div class="ad-panel__head">
+          <div class="ad-panel__heading">
+            <h2 class="ad-panel__title" id="ad-sales-title">Sales</h2>
+            <p class="ad-panel__lead" data-sales-summary></p>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm ad-sales__toggle" data-sales-toggle aria-expanded="false" aria-controls="ad-sales-table">View as table</button>
+        </div>
+
+        <figure class="ad-chart" data-sales-chart>
+          <div class="ad-chart__plot" data-chart-plot></div>
+          <div class="ad-chart__tip" data-chart-tip aria-hidden="true" hidden>
+            <span class="ad-chart__tip-value" data-tip-value></span>
+            <span class="ad-chart__tip-label" data-tip-label></span>
+          </div>
+          <figcaption class="ad-chart__caption">Revenue per day in PKR. Hover or focus a day for its figures; use the arrow keys to move between days.</figcaption>
+        </figure>
+
+        <div class="ad-sales__table" id="ad-sales-table" hidden>
+          <table class="ad-table ad-table--compact" data-sales-table>
+            <caption class="ad-table__caption">Revenue per day, last 30 days (Pakistan time)</caption>
+            <thead>
+              <tr><th scope="col">Date</th><th scope="col" class="ad-num">Orders</th><th scope="col" class="ad-num">Revenue</th></tr>
+            </thead>
+            <tbody data-sales-body></tbody>
+            <tfoot data-sales-foot></tfoot>
+          </table>
+        </div>
+      </section>
+
+      <section class="ad-panel ad-low" aria-labelledby="ad-low-title" data-low-stock>
+        <div class="ad-panel__head">
+          <div class="ad-panel__heading">
+            <h2 class="ad-panel__title" id="ad-low-title">Low stock</h2>
+            <p class="ad-panel__lead">Products with 5 or fewer bottles left, including sold out.</p>
+          </div>
+        </div>
+        <ul class="ad-low__list" data-low-list></ul>
+      </section>
+
+      <section class="ad-panel ad-orders" aria-labelledby="ad-orders-title">
+        <div class="ad-panel__head">
+          <div class="ad-panel__heading">
+            <h2 class="ad-panel__title" id="ad-orders-title">Orders</h2>
+            <p class="ad-panel__lead">Newest first. Orders placed in this browser sit at the top, marked This browser.</p>
+          </div>
+        </div>
+
+        <p class="ad-hint" data-live-empty hidden>
+          <span class="ad-hint__title">No orders from this browser yet.</span>
+          <span>Place an order at checkout and it appears here instantly.</span>
+          <a class="btn btn--text" href="shop.html">Go to the shop</a>
+        </p>
+        <p class="ad-hint ad-hint--live" data-live-note hidden></p>
+
+        <div class="ad-table-wrap">
+          <table role="table" class="ad-table ad-orders__table" data-orders-table>
+            <caption class="sr-only">Orders, newest first, with status controls</caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th role="columnheader" scope="col">Order</th>
+                <th role="columnheader" scope="col">Date</th>
+                <th role="columnheader" scope="col">Customer</th>
+                <th role="columnheader" scope="col" class="ad-num">Items</th>
+                <th role="columnheader" scope="col" class="ad-num">Total</th>
+                <th role="columnheader" scope="col">Payment</th>
+                <th role="columnheader" scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup" data-orders-body></tbody>
+          </table>
+        </div>
+
+        <div class="ad-orders__foot">
+          <p class="ad-orders__count" data-orders-count></p>
+          <button type="button" class="btn btn--ghost btn--sm" data-orders-toggle aria-expanded="false">Show all</button>
+        </div>
+      </section>
+
+      <section class="ad-panel ad-products" aria-labelledby="ad-products-title">
+        <div class="ad-panel__head">
+          <div class="ad-panel__heading">
+            <h2 class="ad-panel__title" id="ad-products-title">Products</h2>
+            <p class="ad-panel__lead">View only. Stock and prices come from the live catalogue.</p>
+          </div>
+        </div>
+        <div class="ad-table-wrap">
+          <table role="table" class="ad-table ad-products__table" data-products-table>
+            <caption class="sr-only">All 12 products with stock, starting price and rating</caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th role="columnheader" scope="col">Product</th>
+                <th role="columnheader" scope="col">House</th>
+                <th role="columnheader" scope="col" class="ad-num">Stock</th>
+                <th role="columnheader" scope="col" class="ad-num">From</th>
+                <th role="columnheader" scope="col" class="ad-num">Rating</th>
+                <th role="columnheader" scope="col">Availability</th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup" data-products-body></tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- two polite nodes take turns (see admin.js announce); no whitespace between them -->
+    <div class="sr-only" data-admin-live><p role="status" aria-live="polite"></p><p role="status" aria-live="polite"></p></div>
+  </main>
+
+  <script src="assets/js/media-manifest.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/pricing.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/admin-data.js"></script>
+  <script src="assets/js/pages/admin.js"></script>
+</body>
+</html>
