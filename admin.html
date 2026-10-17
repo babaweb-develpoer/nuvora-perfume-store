@@ -132,11 +132,16 @@
         </p>
         <p class="ad-hint ad-hint--live" data-live-note hidden></p>
 
+        <div class="ad-orders__tools">
+          <button type="button" class="btn btn--ghost btn--sm" data-orders-expand data-all-open="0">Expand all</button>
+        </div>
+
         <div class="ad-table-wrap">
           <table role="table" class="ad-table ad-orders__table" data-orders-table>
-            <caption class="sr-only">Orders, newest first, with status controls</caption>
+            <caption class="sr-only">Orders, newest first, with status controls and a toggle for each order's full details</caption>
             <thead role="rowgroup">
               <tr role="row">
+                <th role="columnheader" scope="col" class="ad-orders__tcol"><span class="sr-only">Details</span></th>
                 <th role="columnheader" scope="col">Order</th>
                 <th role="columnheader" scope="col">Date</th>
                 <th role="columnheader" scope="col">Customer</th>
@@ -165,7 +170,7 @@
         </div>
         <div class="ad-table-wrap">
           <table role="table" class="ad-table ad-products__table" data-products-table>
-            <caption class="sr-only">All 12 products with stock, starting price and rating</caption>
+            <caption class="sr-only">All 12 products with stock, starting price, rating and photo file name</caption>
             <thead role="rowgroup">
               <tr role="row">
                 <th role="columnheader" scope="col">Product</th>
@@ -174,6 +179,7 @@
                 <th role="columnheader" scope="col" class="ad-num">From</th>
                 <th role="columnheader" scope="col" class="ad-num">Rating</th>
                 <th role="columnheader" scope="col">Availability</th>
+                <th role="columnheader" scope="col">Photo file</th>
               </tr>
             </thead>
             <tbody role="rowgroup" data-products-body></tbody>

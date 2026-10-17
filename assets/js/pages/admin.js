@@ -20,6 +20,12 @@
  * low stock and the orders table. While a status <select> has focus the table is
  * not rebuilt (that would close it or steal focus); it catches up on focusout.
  *
+ * Order details: the first cell of every order row is a chevron button that opens a
+ * second row with everything known about the order (customer, delivery, items,
+ * totals). The numbers of the open orders live in `expanded`, so they stay open
+ * through every rebuild of the table (store.onChange, status changes, Show all).
+ * The details come only from the order data in this page; nothing leaves it.
+ *
  * Every dynamic string goes through Shop.util.escapeHtml or textContent.
  */
 (function () {
@@ -60,6 +66,7 @@
     ordersBody: $('[data-orders-body]'),
     ordersCount: $('[data-orders-count]'),
     ordersToggle: $('[data-orders-toggle]'),
+    ordersExpand: $('[data-orders-expand]'),
     productsBody: $('[data-products-body]'),
     live: doc.querySelectorAll('[data-admin-live] [aria-live]')
   };
@@ -69,6 +76,7 @@
   var overrides = {};       // sample order number -> status, this page view only
   var liveTurn = 0;         // which of the two live nodes speaks next
   var showAll = false;
+  var expanded = new Set(); // numbers of the orders whose details are open
   var pending = false;      // orders table rebuild waiting for a status select to lose focus
   var activeBar = 29;       // roving tab stop in the chart
   var chartWidth = 0;
@@ -99,6 +107,12 @@
     return (o.lines || []).reduce(function (s, l) { var q = Number(l && l.qty); return s + (isFinite(q) && q > 0 ? q : 0); }, 0);
   }
   function str(v) { return typeof v === 'string' ? v : ''; }
+  function num(v) { var n = Number(v); return isFinite(n) ? n : 0; }
+  function fmtFull(iso) {
+    var d = pkt(iso);
+    if (!d) return '';
+    return d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear() + ', ' + pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()) + ' PKT';
+  }
 
   function announce(msg) {
     var nodes = els.live;
@@ -379,12 +393,101 @@
     }).join('');
   }
 
+  function chevron() {
+    return '<svg class="ad-toggle__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg>';
+  }
+
+  function detailId(n) { return 'ad-od-' + n.replace(/[^A-Za-z0-9_-]/g, '-'); }
+
+  function productOf(id) {
+    for (var i = 0; i < products.length; i++) if (products[i].id === id) return products[i];
+    return null;
+  }
+
+  // One purchased line: thumbnail, name, house, size, quantity, gift wrap and the
+  // line total (catalogue price x quantity; pricing's stock clamp does not apply to history).
+  function lineHtml(l) {
+    l = l || {};
+    var p = productOf(l.productId);
+    var qty = Math.max(1, num(l.qty));
+    var size = null;
+    if (p) (p.sizes || []).forEach(function (s) { if (s.ml === num(l.ml)) size = s; });
+    var meta = [];
+    if (p) meta.push(esc(p.house));
+    meta.push(esc(num(l.ml) + ' ml'));
+    meta.push('Qty ' + qty);
+    if (l.gift) meta.push('Gift wrap');
+    var thumb = Shop.ui && Shop.ui.media ? Shop.ui.media('product-' + str(l.productId), { alt: '', className: 'ad-od__img' }) : '';
+    return '<li class="ad-od__item">' +
+      '<span class="ad-od__thumb">' + thumb + '</span>' +
+      '<span class="ad-od__info"><span class="ad-od__pname">' + esc(p ? p.name : str(l.productId)) + '</span>' +
+        '<span class="ad-od__pmeta">' + meta.join(' &middot; ') + '</span></span>' +
+      '<span class="ad-od__ltotal">' + (size ? esc(pkr(size.price * qty)) : '') + '</span>' +
+    '</li>';
+  }
+
+  function ledgerRow(key, label, value) {
+    return '<div class="ledger__row ledger__row--' + key + '">' +
+      '<dt class="ledger__label">' + label + '</dt><dd class="ledger__value">' + esc(value) + '</dd></div>';
+  }
+
+  // Same markup as Shop.bag.ledgerHtml (cart-shared.js is not loaded here), fed with
+  // the totals stored on the order. Gift wrap and discount always show, "None" when 0.
+  function ledgerHtml(o) {
+    var t = o.totals || {};
+    var code = str(o.code);
+    return '<dl class="ledger bag-ledger">' +
+      ledgerRow('subtotal', 'Subtotal', pkr(num(t.subtotal))) +
+      ledgerRow('giftWrap', 'Gift wrap', num(t.giftWrap) > 0 ? pkr(num(t.giftWrap)) : 'None') +
+      ledgerRow('discount', 'Discount' + (code ? ' <span class="ledger__code">' + esc(code) + '</span>' : ''), num(t.discount) > 0 ? '−' + pkr(num(t.discount)) : 'None') +
+      ledgerRow('delivery', 'Delivery', num(t.delivery) > 0 ? pkr(num(t.delivery)) : 'Free') +
+      ledgerRow('total', 'Total', pkr(total(o))) +
+    '</dl>';
+  }
+
+  function fact(key, label, valueHtml, wide) {
+    return '<div class="ad-od__fact' + (wide ? ' ad-od__fact--wide' : '') + '"><dt>' + label + '</dt><dd data-fact="' + key + '">' + valueHtml + '</dd></div>';
+  }
+
+  // Everything known about one order, as markup for the details region.
+  function detailsHtml(e) {
+    var o = e.order;
+    var c = o.customer || {};
+    var lines = (o.lines || []).map(lineHtml).join('');
+    return '<div class="ad-od__main">' +
+        '<p class="ad-od__title">Customer and delivery</p>' +
+        '<dl class="ad-od__facts">' +
+          fact('name', 'Full name', esc(str(c.name) || 'No name given')) +
+          fact('phone', 'Phone', esc(str(c.phone) || 'Not provided')) +
+          fact('email', 'Email', esc(str(c.email) || 'Not provided')) +
+          fact('province', 'Province', esc(str(c.province) || 'Not provided')) +
+          fact('city', 'City', esc(str(c.city) || 'Not provided')) +
+          fact('address', 'Full address', esc(str(c.address) || 'Not provided'), true) +
+          fact('notes', 'Delivery notes', esc(str(c.notes) || 'None'), true) +
+          fact('payment', 'Payment', 'Cash on delivery') +
+          fact('placed', 'Placed', '<time datetime="' + esc(str(o.createdAt)) + '">' + esc(fmtFull(o.createdAt)) + '</time>') +
+          fact('status', 'Status', esc(e.status)) +
+          fact('code', 'Discount code', esc(str(o.code) || 'None')) +
+        '</dl>' +
+      '</div>' +
+      '<div class="ad-od__side">' +
+        '<p class="ad-od__title">Items</p>' +
+        '<ul class="ad-od__list">' + lines + '</ul>' +
+        ledgerHtml(o) +
+      '</div>';
+  }
+
   function orderRow(e) {
     var o = e.order;
     var c = o.customer || {};
     var n = str(o.number);
     var count = items(o);
-    return '<tr role="row" class="ad-orow' + (e.live ? ' ad-orow--live' : '') + '" data-order-row="' + esc(n) + '" data-live="' + (e.live ? '1' : '0') + '">' +
+    var open = expanded.has(n);
+    var id = detailId(n);
+    return '<tr role="row" class="ad-orow' + (e.live ? ' ad-orow--live' : '') + (open ? ' is-open' : '') + '" data-order-row="' + esc(n) + '" data-live="' + (e.live ? '1' : '0') + '">' +
+      '<td role="cell" class="ad-orow__toggle"><button type="button" class="ad-toggle" data-order-toggle="' + esc(n) + '" aria-expanded="' + (open ? 'true' : 'false') + '" ' +
+        'aria-controls="' + esc(id) + '" aria-label="Show details for ' + esc(n) + '">' + chevron() + '</button></td>' +
       '<th role="rowheader" scope="row" class="ad-orow__order"><span class="ad-orow__number">' + esc(n) + '</span>' +
         '<span class="ad-origin ad-origin--' + (e.live ? 'live' : 'sample') + '" data-origin>' + (e.live ? 'This browser' : 'Generated') + '</span></th>' +
       '<td role="cell" class="ad-orow__date"><time datetime="' + esc(str(o.createdAt)) + '">' + esc(fmtDateTime(o.createdAt)) + '</time></td>' +
@@ -396,7 +499,70 @@
       '<td role="cell" class="ad-orow__status"><span class="ad-status" data-status-pill data-status="' + esc(e.status) + '">' +
         '<select class="ad-status__select" data-status-for="' + esc(n) + '" aria-label="Status for ' + esc(n) + '">' + statusOptions(e.status) + '</select>' +
       '</span></td>' +
+    '</tr>' +
+    '<tr role="row" class="ad-odetail" data-order-details="' + esc(n) + '" data-live="' + (e.live ? '1' : '0') + '"' + (open ? '' : ' hidden') + '>' +
+      '<td role="cell" class="ad-odetail__cell" colspan="8"><div class="ad-od" id="' + esc(id) + '" role="region" aria-label="Details for ' + esc(n) + '">' +
+        (open ? detailsHtml(e) : '') + '</div></td>' +
     '</tr>';
+  }
+
+  // The element of the orders table carrying attr="number" (compared as a string,
+  // never spliced into a selector).
+  function byOrder(attr, number) {
+    var list = els.ordersBody.querySelectorAll('[' + attr + ']');
+    for (var i = 0; i < list.length; i++) if (list[i].getAttribute(attr) === number) return list[i];
+    return null;
+  }
+
+  function syncExpandAll() {
+    var btns = els.ordersBody.querySelectorAll('[data-order-toggle]');
+    var allOpen = btns.length > 0;
+    for (var i = 0; i < btns.length; i++) if (btns[i].getAttribute('aria-expanded') !== 'true') allOpen = false;
+    els.ordersExpand.textContent = allOpen ? 'Collapse all' : 'Expand all';
+    els.ordersExpand.setAttribute('data-all-open', allOpen ? '1' : '0');
+  }
+
+  // Open or close one order's details in place, so the button keeps focus.
+  function setOpen(number, open, byNum) {
+    var btn = byOrder('data-order-toggle', number);
+    var det = byOrder('data-order-details', number);
+    if (!btn || !det) return;
+    var region = det.querySelector('[role="region"]');
+    var tr = btn.closest('tr');
+    if (open) {
+      var e = (byNum || entries())[number];
+      if (!e) return;
+      expanded.add(number);
+      region.innerHTML = detailsHtml(e);
+    } else {
+      expanded.delete(number);
+      region.innerHTML = '';
+    }
+    det.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (tr) tr.classList.toggle('is-open', open);
+  }
+
+  // order number -> merged entry
+  function entries() {
+    var map = {};
+    merged().forEach(function (e) { map[str(e.order.number)] = e; });
+    return map;
+  }
+
+  function onToggleClick(ev) {
+    var btn = ev.target.closest && ev.target.closest('[data-order-toggle]');
+    if (!btn || !els.ordersBody.contains(btn)) return;
+    setOpen(btn.getAttribute('data-order-toggle'), btn.getAttribute('aria-expanded') !== 'true');
+    syncExpandAll();
+  }
+
+  function onExpandAll() {
+    var open = els.ordersExpand.getAttribute('data-all-open') !== '1';
+    var map = entries();
+    var btns = els.ordersBody.querySelectorAll('[data-order-toggle]');
+    for (var i = 0; i < btns.length; i++) setOpen(btns[i].getAttribute('data-order-toggle'), open, map);
+    syncExpandAll();
   }
 
   function focusedStatus() {
@@ -407,6 +573,8 @@
   function renderOrders(all) {
     var keep = focusedStatus();
     var keepNum = keep ? keep.getAttribute('data-status-for') : null;
+    var ka = doc.activeElement;
+    var keepToggle = ka && ka.hasAttribute && ka.hasAttribute('data-order-toggle') && els.ordersBody.contains(ka) ? ka.getAttribute('data-order-toggle') : null;
     var list = showAll ? all : all.slice(0, LIMIT);
     els.ordersBody.innerHTML = list.map(orderRow).join('');
     els.ordersCount.textContent = list.length < all.length
@@ -419,6 +587,11 @@
       var again = els.ordersBody.querySelectorAll('select[data-status-for]');
       for (var i = 0; i < again.length; i++) if (again[i].getAttribute('data-status-for') === keepNum) again[i].focus();
     }
+    if (keepToggle) {
+      var tg = byOrder('data-order-toggle', keepToggle);
+      if (tg) tg.focus();
+    }
+    syncExpandAll();
     pending = false;
   }
 
@@ -453,6 +626,9 @@
       overrides[number] = value;
     }
     pill.setAttribute('data-status', value);
+    var shown = byOrder('data-order-details', number);
+    var statusFact = shown ? shown.querySelector('[data-fact="status"]') : null;
+    if (statusFact) statusFact.textContent = value;
     announce(number + ' set to ' + value);
     var all = merged();
     renderStats(all);
@@ -470,6 +646,13 @@
     return (p.sizes || []).reduce(function (min, s) { return min === null || s.price < min ? s.price : min; }, null) || 0;
   }
 
+  // 'product-mn-01.jpg': the picture's file name in assets/img, read from the media manifest.
+  function photoFile(p) {
+    var m = Shop.media && Object.prototype.hasOwnProperty.call(Shop.media, 'product-' + p.id) ? Shop.media['product-' + p.id] : null;
+    var file = m && m.file ? m.file : (p.images && p.images[0]) || '';
+    return String(file).split('/').pop();
+  }
+
   function renderProducts() {
     els.productsBody.innerHTML = products.map(function (p) {
       var st = stockState(p);
@@ -482,6 +665,7 @@
         '<td role="cell" class="ad-num ad-prow__rating"><span class="ad-orow__k">Rating</span><span class="ad-rating">' + icon('star', 'ad-prow__star') +
           '<span>' + esc(Number(p.rating).toFixed(1)) + '<span class="sr-only"> out of 5</span></span></span></td>' +
         '<td role="cell" class="ad-prow__pill"><span class="' + st.cls + '" data-stock-pill>' + st.text + '</span></td>' +
+        '<td role="cell" class="ad-prow__file"><span class="ad-orow__k">Photo file</span><code class="ad-prow__code">' + esc(photoFile(p)) + '</code></td>' +
       '</tr>';
     }).join('');
   }
@@ -534,6 +718,8 @@
     refresh();
 
     els.ordersBody.addEventListener('change', onStatusChange);
+    els.ordersBody.addEventListener('click', onToggleClick);
+    els.ordersExpand.addEventListener('click', onExpandAll);
     els.ordersBody.addEventListener('focusout', function () {
       window.setTimeout(function () {
         if (pending && !focusedStatus()) renderOrders(merged());
